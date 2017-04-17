@@ -1,0 +1,22 @@
+<h1> Create New Account</h1>
+
+<%= flash[:message] %>
+<% if @user.errors.any? %>
+<% @user.errors.full_messages.each do |error| %>
+<%= error %> <br> <br>
+<% end %>
+<% end %>
+
+<%= form_for @user do |f| %>
+<%= f.label :username %> <br>
+<%= f.text_field :username %> <br>
+<%= f.label :password %> <br>
+<%= f.password_field :password %> <br>
+<%= f.label :password_confirmation, "Confirm Password" %> <br>
+<%= f.password_field :password_confirmation %> <br>
+<%= f.label :birthday %> <br>
+<%= f.date_field :birthday %> <br>
+<%= f.label :email %> <br>
+<%= f.text_field :email %> <br> <br>
+<%= f.submit "Register Account" %>
+<% end %>
