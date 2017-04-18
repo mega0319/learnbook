@@ -1,0 +1,17 @@
+<h1> Welcome To LearnBook </h1>
+
+<h2>Log In</h2>
+
+<%= flash[:message] %>
+
+<%= form_tag create_session_path do  %>
+<label> Username </label> <br>
+<%= text_field_tag :username %> <br>
+
+<label> Password </label> <br>
+<%= password_field_tag :password %> <br>
+
+<%= submit_tag "Log In" %> <br> <br>
+<% end %>
+
+<%= link_to "Create New Account", new_user_path %>

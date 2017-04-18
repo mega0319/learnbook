@@ -1,0 +1,8 @@
+<h1> Welcome to your Profile Page</h1>
+
+<% @profile.attributes.each do |name, value| %>
+<%= name %> : <%= value %> <br>
+<% end %>  <br><br>
+
+<%= link_to "Back to User Page", user_path(@profile.user_id) %>
+<%= button_to "Log Out", logout_path, method: "delete" %>
