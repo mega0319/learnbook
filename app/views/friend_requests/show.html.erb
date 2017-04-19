@@ -1,0 +1,12 @@
+<h1> Friend Requests Sent</h1>
+
+<% @friend_requests.each do |request| %>
+<% if request.status == "pending" && request.sender_id != current_user.id %>
+<%= link_to "#{User.find(request.sender_id).first_name} #{User.find(request.sender_id).last_name}", profile_path(User.find(request.friend_id).profile) %> <br>
+<%= button_to "Accept Request", create_friendship_path  %>
+<%= button_to "Decline Request", destroy_request_path(request), method: "delete", data: {confirm: "Are you sure?"} %>  <br>
+<% end %>
+<% end %>
+
+
+<h1> Friend Requests Received </h1>

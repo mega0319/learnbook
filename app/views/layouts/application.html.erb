@@ -12,8 +12,12 @@
 
     <% if current_user %>
 
-    <h3> <%= current_user.username %> |  <%= link_to "All Students", friendships_path %>  |  <%= link_to "Home Page", user_path(current_user) %>  |
- <%= link_to "Profile Page", profile_path(current_user.profile) %>  |  <%= link_to "Log Out", logout_path, method:"delete" %> </h3>
+    <% if current_user.friend_requests  %>
+    <%= button_to "Pending Friend Requests",friend_request_page_path(current_user), method: "get" %>
+    <% end %>
+
+    <h3> <%= current_user.username %> |  <%= link_to "All Students", friendships_path %> | <%= link_to "Home Page", user_path(current_user) %>  |
+ <%= link_to "Profile Page", profile_path(current_user.profile) %>  |  <%= link_to "Log Out", logout_path, method:"delete" %>  </h3>
   <h3> Find Friends </h3>
     <%= form_tag search_path, method:"get" do  %>
     <%= text_field_tag :first_name, nil, placeholder: "First Name" %> <%= text_field_tag :last_name, nil, placeholder: "Last Name" %>

@@ -1,9 +1,21 @@
 <h1> Welcome to <%= @profile.first_name %>'s Profile Page</h1>
 
+<% if (flash[:request_notice].present?) %>
+    <%=flash[:request_notice]%> <br> <br>
+    <% flash[:request_notice].clear %>
+<%end%>
+
+<% if (flash[:decline_notice].present?) %>
+    <%=flash[:decline_notice]%> <br> <br>
+    <% flash[:decline_notice].clear %>
+<%end%>
+
 <div class="add_friend">
-  <%form_tag method="post", action="/friend_request/#{@profile.id}%>" do %>
+  <%=form_tag friend_request_path do %>
   <%=submit_tag "Send Friend Request"%>
-</form>
+<% end %>
+</div>
+
 <% @profile.attributes.each do |name, value| %>
 <%= name %> : <%= value %> <br>
 <% end %>  <br><br>
