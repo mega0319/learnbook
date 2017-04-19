@@ -8,6 +8,10 @@
 <% end %>
 
 <%= form_for @user do |f| %>
+<%= f.label :first_name, "Enter your legal first name" %> <br>
+<%= f.text_field :first_name %> <br>
+<%= f.label :last_name, "Enter your legal last name" %> <br>
+<%= f.text_field :last_name %> <br>
 <%= f.label :username, "Username (must be between 6-12 characters)" %> <br>
 <%= f.text_field :username %> <br>
 <%= f.label :password, "Password (must be between 6-12 characters)" %> <br>

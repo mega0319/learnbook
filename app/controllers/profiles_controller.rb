@@ -6,15 +6,19 @@ class ProfilesController < ApplicationController
   def new
   end
 
-  def create
-    @profile = Profile.new(profile_params)
-    @profile.user_id = session[:user_id]
+  def update
+    @profile = Profile.find(params[:id])
+    @profile.update(profile_params)
     @profile.save
     redirect_to profile_path(@profile)
   end
 
   def show
     @profile = Profile.find(params[:id])
+  end
+
+  def edit
+    @profile = Profile.find(current_user.profile)
   end
 
   def profile_params

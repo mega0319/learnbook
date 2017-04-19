@@ -1,0 +1,15 @@
+<br><br>
+
+<% if (flash[:message].present?) %>
+    <%=flash[:message]%>
+    <% flash[:message].clear %>
+<%end%>
+
+<% if (@user.present?) %>
+<% @user.each do |user| %>
+<%= link_to "#{user.first_name} #{user.last_name}", profile_path(user.profile) %> |
+Cohort Name: <%= user.profile.cohort_name %> |
+Cohort Date: <%= user.profile.cohort_date %> |
+Username: <%= user.username %> <br> <br>
+<% end %>
+<% end %>
