@@ -4,9 +4,9 @@ class User < ApplicationRecord
   has_many :friendships
   has_many :friends, through: :friendships
 
-
   has_many :friend_requests
-  has_many :friends, through: :friend_requests
+  has_many :senders, through: :friend_requests, source: :sender
+  has_many :receivers, through: :friend_requests, source: :receiver
 
   before_save :capitalize_name
 

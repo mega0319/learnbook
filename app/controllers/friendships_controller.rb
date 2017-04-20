@@ -5,6 +5,15 @@ helper_method :find_profile
     @users = User.all
   end
 
+  def create
+    @friend_id = Profile.find(params[:id]).user.id
+    @new_friendship = Friendship.new
+    @new_friendship.user_id = current_user.id
+    @new_friendship.friend_id = @friend_id
+    @new_friendship.save
+    redirect_to profile_path(current_user.profile)
+  end
+
   def search
     if params[:first_name].present? && params[:last_name].blank?
       @user = User.where(first_name: params[:first_name].capitalize)
@@ -22,6 +31,10 @@ helper_method :find_profile
 
   def find_profile
     Profile.find_by(user_id: current_user.id)
+  end
+
+  def friendship_params
+    params.require(:friendship).permit(:user_id, :friend_id)
   end
 
 end

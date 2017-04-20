@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  helper_method :logged_in?, :authorize, :current_user
+  helper_method :logged_in?, :authorize, :current_user, :check_pending_requests
 
   def authorize
     unless logged_in?
@@ -16,5 +16,18 @@ class ApplicationController < ActionController::Base
   def current_user
     @current_user ||= User.find_by(id: session[:user_id])
   end
+
+  def check_pending_requests
+    @all = FriendRequest.all
+    @all.each do |req|
+      if req.receiver_id == current_user.id
+        return true
+      else
+        false
+      end
+    end
+  end
+
+
 
 end

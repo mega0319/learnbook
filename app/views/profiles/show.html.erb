@@ -10,9 +10,14 @@
     <% flash[:decline_notice].clear %>
 <%end%>
 
+
+
 <div class="add_friend">
+
+<% unless current_user.id == @profile.user.id %>
   <%=form_tag friend_request_path do %>
   <%=submit_tag "Send Friend Request"%>
+  <% end %>
 <% end %>
 </div>
 
