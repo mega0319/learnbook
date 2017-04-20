@@ -6,11 +6,14 @@ helper_method :find_profile
   end
 
   def create
-    @friend_id = Profile.find(params[:id]).user.id
+    @request_update = FriendRequest.find_by_sender_id_and_receiver_id(params[:user_id], current_user.id)
+    @request_update.update(status: "accepted")
+    @request_update.save
     @new_friendship = Friendship.new
     @new_friendship.user_id = current_user.id
-    @new_friendship.friend_id = @friend_id
+    @new_friendship.friend_id = params[:user_id]
     @new_friendship.save
+
     redirect_to profile_path(current_user.profile)
   end
 

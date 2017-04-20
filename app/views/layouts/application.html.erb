@@ -9,21 +9,34 @@
   </head>
 
   <body>
+    <div class="container">
 
     <% if current_user %>
 
     <% if check_pending_requests == true  %>
-    <%= button_to "Pending Friend Requests",friend_request_page_path(current_user), method: "get" %>
+    <%= button_to "#{num_of_pending_requests} Pending Friend Requests",friend_request_page_path(current_user), method: "get" %>
     <% end %>
+    <div class="row">
+      <div class="col s12">
+        <h5> <%= current_user.username %> <%= link_to "Inbox", messages_path, class: "waves-effect waves-light blue lighten-3 btn" %>  <%= link_to "All Students", friendships_path, class: "waves-effect waves-light blue lighten-3 btn" %>  <%= link_to "Home Page", user_path(current_user), class: "waves-effect waves-light blue lighten-3 btn" %>
+          <%= link_to "Profile Page", profile_path(current_user.profile), class: "waves-effect waves-light blue lighten-3 btn" %>   <%= link_to "Log Out", logout_path, method:"delete", class: "waves-effect waves-light blue lighten-3 btn" %>  </h5>
+      </div>
+      <div class="col s6">
 
-    <h3> <%= current_user.username %> |  <%= link_to "All Students", friendships_path %> | <%= link_to "Home Page", user_path(current_user) %>  |
- <%= link_to "Profile Page", profile_path(current_user.profile) %>  |  <%= link_to "Log Out", logout_path, method:"delete" %>  </h3>
-  <h3> Find Friends </h3>
-    <%= form_tag search_path, method:"get" do  %>
-    <%= text_field_tag :first_name, nil, placeholder: "First Name" %> <%= text_field_tag :last_name, nil, placeholder: "Last Name" %>
-    <%= submit_tag "Search" %>
-    <% end %>
-    <% end %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col s12">
+          <h5> Find Friends </h5>
+          <%= form_tag search_path, method:"get" do  %>
+          <%= text_field_tag :first_name, nil, placeholder: "First Name" %> <%= text_field_tag :last_name, nil, placeholder: "Last Name" %>
+          <%= submit_tag "Search" %>
+          <% end %>
+          <% end %>
+      </div>
+    </div>
+
     <%= yield %>
+  </div>
   </body>
 </html>

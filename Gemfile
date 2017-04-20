@@ -5,6 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'materialize-sass'
 gem 'pg', '~> 0.18'
 gem 'validates_email_format_of'
 gem 'validates_timeliness', '~> 4.0'

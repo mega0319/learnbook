@@ -1,17 +1,17 @@
-<h1> Welcome To LearnBook </h1>
+<div class="container">
+  <h2 class="center-align"> Welcome To LearnBook </h2> <br> <br>
 
-<h2>Log In</h2>
+  <%= flash[:message] %>
 
-<%= flash[:message] %>
+  <%= form_tag create_session_path do  %>
+  <label> Username </label> <br>
+  <%= text_field_tag :username %> <br>
 
-<%= form_tag create_session_path do  %>
-<label> Username </label> <br>
-<%= text_field_tag :username %> <br>
+  <label> Password </label> <br>
+  <%= password_field_tag :password %> <br>
 
-<label> Password </label> <br>
-<%= password_field_tag :password %> <br>
+  <%= submit_tag "Log In", class: "waves-effect waves-light blue lighten-3 btn" %> <br> <br>
+  <% end %>
 
-<%= submit_tag "Log In" %> <br> <br>
-<% end %>
-
-<%= link_to "Create New Account", new_user_path %>
+  <%= link_to "Create New Account", new_user_path %>
+</div>

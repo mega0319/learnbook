@@ -14,7 +14,7 @@
 
 <div class="add_friend">
 
-<% unless current_user.id == @profile.user.id %>
+<% if current_user.id != @profile.user_id && check_for_requests  %>
   <%=form_tag friend_request_path do %>
   <%=submit_tag "Send Friend Request"%>
   <% end %>

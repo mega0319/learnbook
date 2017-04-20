@@ -7,13 +7,16 @@ Rails.application.routes.draw do
   #users
   resources :users
 
+  #messages
+  get '/messages', to: "messages#index", as: "messages"
+
   #profiles
   resources :profiles
 
   #friendships
   get '/friendships', to: 'friendships#index', as: 'friendships'
-  get '/friendships/search', to: 'friendships#search', as: 'search'
-  post '/friendships/create', to: 'friendships#create', as: 'create_friendship'
+  get '/friendship', to: 'friendships#search', as: 'search'
+  post '/friendships/:id', to: 'friendships#create', as: 'create_friendship'
 
   #sessions
   get '/sessions/new', to: 'sessions#new', as: 'new_session'
