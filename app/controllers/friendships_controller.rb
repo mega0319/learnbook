@@ -19,7 +19,7 @@ helper_method :find_profile
 
   def search
     if params[:first_name].present? && params[:last_name].blank?
-      @user = User.where(first_name: params[:first_name].capitalize)
+      @user = User.where('first_name LIKE ?', "%#{params[:first_name].capitalize}%")
     elsif params[:first_name].blank? && params[:last_name].present?
       @user = User.where(last_name: params[:last_name].capitalize)
     elsif params[:first_name].present? && params[:last_name].present?

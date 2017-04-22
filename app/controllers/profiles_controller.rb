@@ -8,6 +8,7 @@ class ProfilesController < ApplicationController
   end
 
   def show
+    @comment = Comment.new
     @profile = Profile.find(params[:id])
   end
 

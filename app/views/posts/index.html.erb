@@ -1,18 +1,31 @@
 <div class="container">
     <h2 class="center-align"> Your Daily Feed </h2>
 
-    <% @posts.each do |post| %>
+    <% @posts.reverse.each do |post| %>
     <div class="row">
         <div class="col s6 offset-s3">
           <div class="card hoverable grey lighten-5 z-depth-1 center">
             <div class="card-content black-text">
+              <%= post.created_at %>
               <span class="card-title"> <%= post.title %> </span>
               <%= post.content %> <br><br>
-              <%= " - #{post.user.first_name}" %> <br> <br>
-              Likes: <%= post.likes.count %> <br>
-              Dislikes: <%= post.dislikes.count %> <br>
+              <%= " - #{post.user.first_name} #{post.user.last_name}" %> <br> <br>
+
+              <b> Comments </b> <br>
+              <% post.comments.each do |comment| %>
+              <b> <%= comment.user.first_name %> </b>: <%= comment.content %> <br>
+              <% end %> <br>
+              <div class="row">
+                <div class="col s6">
+              <font color="green"> Likes: <%= post.likes.count %> </font>
+              </div>
+              <div class="col s6">
+              <font color="red"> Dislikes: <%= post.dislikes.count %> </font>
+              </div>
+              </div>
             </div>
             <div class="card-action">
+
 
               <%= button_to gen_like_path, params: {post_id: post.id}, class: "inline-buttons waves-effect waves-light blue lighten-3 btn" do %>
               Like <i class="material-icons left">thumb_up</i>
@@ -22,13 +35,13 @@
               Dislike <i class="material-icons left">thumb_down</i>
               <% end %> <br> <br>
 
+
               <%= form_for @comment do |f| %>
               <%= f.text_field :content, placeholder: "type your comment here" %>
               <%= button_to create_comment_path, params: {post_id: post.id}, class: "inline-buttons waves-effect waves-light blue lighten-3 btn" do %>
-              Comment <i class="material-icons left">chat_bubble_outline</i>
+              Comment <i class="material-icons left">comment</i>
               <% end %>
               <% end %>
-
 
             </div>
           </div>

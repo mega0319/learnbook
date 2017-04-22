@@ -14,7 +14,7 @@ class PostsController < ApplicationController
     post.user_id = current_user.id
     post.save
     flash[:post_success] = "Post is Great success!"
-    redirect_to user_path(current_user)
+    redirect_to profile_path(current_user.profile)
   end
 
   def edit
