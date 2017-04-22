@@ -9,7 +9,7 @@ class FriendRequestsController < ApplicationController
     @new_request.status = "pending"
     @new_request.save
     flash[:request_notice] = "Friend request sent to #{User.find(@receiver_id).first_name}!"
-    redirect_to profile_path(current_user.profile)
+    redirect_to profile_path(params[:id])
   end
 
   def show

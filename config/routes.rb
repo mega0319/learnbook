@@ -32,7 +32,8 @@ Rails.application.routes.draw do
   #messages
   resources :received_messages
   resources :sent_messages
-  resources :messages
+  resources :messages, except: [:edit, :update]
+  post '/messages/:id', to: 'messages#update', as: 'update_message'
 
   #friendships
   get '/show/friendships', to: 'friendships#show', as: 'show_friends'
