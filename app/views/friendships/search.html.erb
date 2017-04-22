@@ -9,10 +9,10 @@
 
 <% if (@user.present?) %>
 <% @user.each do |user| %>
-<%= link_to "#{user.first_name} #{user.last_name}", profile_path(user.profile) %> |
+<h6> <%= link_to "#{user.first_name} #{user.last_name}", profile_path(user.profile) %> |
 Cohort Name: <%= user.profile.cohort_name %> |
 Cohort Date: <%= user.profile.cohort_date %> |
-Username: <%= user.username %> <br> <br>
+Username: <%= user.username %> </h6> <br>
 <% end %>
 <% end %>
 

@@ -20,6 +20,9 @@ class User < ApplicationRecord
   #dislikes
   has_many :dislikes
 
+  #comments
+  has_many :comments
+
   #messages
   has_many :sent_messages, foreign_key: "user_sent"
   has_many :received_messages, foreign_key: "user_received"

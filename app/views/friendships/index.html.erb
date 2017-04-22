@@ -9,7 +9,12 @@
 <% @users.each do |user| %>
 <li><%= link_to "#{user.first_name} #{user.last_name}", profile_path(user.profile) %> |
 Cohort Name: <%= user.profile.cohort_name %> |
-Cohort Date: <%= user.profile.cohort_date %>
+Cohort Date: <%= user.profile.cohort_date %> |
+
+<% if current_user.friends.include?(user) %>
+<font color="green"> <%= "FRIEND" %> </font>
+<% end %>
+
  </li> <br>
 <% end %>
 </div>

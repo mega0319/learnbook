@@ -32,12 +32,22 @@ helper_method :find_profile
     end
   end
 
+  def destroy
+    friend = Profile.find(params[:id]).user
+    friendship1 = Friendship.find_by(user_id:current_user.id, friend_id:friend.id)
+    friendship2 = Friendship.find_by(user_id:friend.id, friend_id:current_user.id)
+    friendship1.destroy
+    friendship2.destroy
+    flash[:unfriend_msg] = "You unfriended #{friend.first_name}"
+    redirect_to profile_path(params[:id])
+  end
+
   def find_profile
     Profile.find_by(user_id: current_user.id)
   end
 
   def friendship_params
-    params.require(:friendship).permit(:user_id, :friend_id)
+    params.require(:friendship).permit(:user_id, :friend_id, :id)
   end
 
 end

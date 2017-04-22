@@ -8,8 +8,13 @@
   <% end %>
 
   <% if (flash[:request_notice].present?) %>
-      <%=flash[:request_notice]%> <br> <br>
+    <font color="green">  <%=flash[:request_notice]%> </font> <br> <br>
       <% flash[:request_notice].clear %>
+  <%end%>
+
+  <% if (flash[:unfriend_msg].present?) %>
+    <font color="red">  <%=flash[:unfriend_msg]%> </font> <br> <br>
+      <% flash[:unfriend_msg].clear %>
   <%end%>
 
   <% if (flash[:decline_notice].present?) %>
@@ -22,8 +27,9 @@
   <div class="add_friend">
 
   <% if friend_check %>
-  <%= "You are friends with #{@profile.user.first_name}"  %> <br> <br> <br>
+  <font color="green"> <%= "You are friends with #{@profile.user.first_name}"   %> </font> <br> <br>
   <%= button_to "Send Message", new_message_path(@profile), method: "get", class: "waves-effect waves-light blue lighten-3 btn" %> <br> <br>
+  <%= button_to "Unfriend", delete_me_path, params: {id: @profile.id}, method: "delete", class: "waves-effect waves-light blue lighten-3 btn" %>
     <div class="first">
   <% end %>
 
@@ -35,6 +41,9 @@
   </div>
 <div class="row">
     <div class="col s5 ">
+      <% if current_user.profile == @profile %>
+<%= button_to "Create New Post", new_post_path, method: "get", class: "waves-effect waves-light blue lighten-3 btn" %> <br>
+  <% end %> <br>
   <% @profile.attributes.each do |name, value| %>
   <% if value != ''&& name != "id" && name != "user_id" %>
   <%= name %> : <%= value %> <br>
@@ -60,15 +69,13 @@
               </div>
               <div class="card-action">
                 <% if post.user == current_user %>
-                <%= button_to edit_post_path, params: {post_id: post.id}, class: "inline-buttons waves-effect waves-light blue lighten-3 btn" do %>
+                <%= button_to edit_post_path, method:"get", params: {post_id: post.id}, class: "inline-buttons waves-effect waves-light blue lighten-3 btn" do %>
                 Edit <i class="material-icons left">mode_edit</i>
                 <% end %>
 
-                <%= button_to delete_post_path, params: {post_id: post.id}, class: "inline-buttons waves-effect waves-light blue lighten-3 btn" do %>
+                <%= button_to delete_post_path, method: "delete", params: {post_id: post.id}, class: "inline-buttons waves-effect waves-light blue lighten-3 btn" do %>
                 Delete <i class="material-icons left">delete</i>
                 <% end %>
-
-
 
 
                   <% else %>
@@ -79,6 +86,10 @@
 
                   <%= button_to gen_dislike_path, params: {post_id: post.id}, class: "inline-buttons waves-effect waves-light blue lighten-3 btn" do %>
                   Dislike <i class="material-icons left">thumb_down</i>
+                  <% end %>
+
+                  <%= button_to new_comment_path, method: "get", params: {post_id: post.id}, class: "inline-buttons waves-effect waves-light blue lighten-3 btn" do %>
+                  Comment <i class="material-icons left">chat_bubble_outline</i>
                   <% end %>
 
 

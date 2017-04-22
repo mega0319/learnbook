@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   #friend_requests
-  #resources :friend_requests
+
   get '/friend_requests/:id', to: "friend_requests#show", as: "friend_request_page"
   post '/friend_requests/:id', to: "friend_requests#create", as: "friend_request"
   delete '/friend_requests/:id', to: "friend_requests#destroy", as: "destroy_request"
+
   #users
   resources :users
 
@@ -26,8 +27,12 @@ Rails.application.routes.draw do
   get '/posts/:id', to: "posts#show", as: "post"
   get'/posts/:id/edit', to: "posts#edit", as: "edit_post"
   patch '/posts/:id', to: "posts#update", as: "update_post"
+  delete '/posts', to: "posts#destroy", as: "delete_post"
 
-  delete '/posts/:id', to: "posts#destroy", as: "delete_post"
+  #comments
+  get'/comments', to: "comments#index", as: "comments"
+  get 'comments/new', to: "comments#new", as: "new_comment"
+  post '/comments', to: "comments#create", as: "create_comment"
 
   #messages
   resources :received_messages
