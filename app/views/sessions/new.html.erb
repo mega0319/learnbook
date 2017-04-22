@@ -1,12 +1,13 @@
 <div class="container">
   <h2 class="center-align"> Welcome To LearnBook </h2> <br> <br>
-
-  <%= flash[:message] %>
+<div class="center">
+  <font color="red"> <%= flash[:message] %> </font>  <br>
+</div>
   <div class="row">
     <div class="col s4 offset-s4">
   <div class="center-align">
   <%= form_tag create_session_path do  %>
-  <label> Username </label> <br>
+  <br><label> Username </label> <br>
   <p class="center-align",id="login"> <%= text_field_tag :username %> </p> <br>
 
   <label> Password </label> <br>

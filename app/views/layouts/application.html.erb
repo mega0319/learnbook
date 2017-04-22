@@ -28,17 +28,17 @@
             </ul>
           </div>
         </nav>
-        <div class="center">
-          <%= form_tag search_path, method:"get" do  %>
-          <%= text_field_tag :first_name, nil, placeholder: "First Name" %> <%= text_field_tag :last_name, nil, placeholder: "Last Name" %>
-          <%= submit_tag "Search", class: "waves-effect waves-light blue lighten-3 btn" %>
-          <% end %> <br>
-        </div>
 
 
     <% if !check_pending_requests.empty?  %>
     <%= button_to "#{num_of_pending_requests} Pending Friend Requests",friend_request_page_path(current_user), method: "get" %>
     <% end %>
+    <div class="center">
+      <%= form_tag search_path, method:"get" do  %>
+      <%= text_field_tag :first_name, nil, placeholder: "First Name" %> <%= text_field_tag :last_name, nil, placeholder: "Last Name" %>
+      <%= submit_tag "Search", class: "waves-effect waves-light blue lighten-3 btn" %>
+      <% end %> <br>
+    </div>
     <div class="row">
       <div class="col s12">
       </div>

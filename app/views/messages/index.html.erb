@@ -26,28 +26,28 @@
 <% current_user.received_messages.reverse.each do |msg| %>
     <% if (SentMessage.find_by(message_id: msg[:message_id])) %>
         <% sent_from = User.find(msg[:user_sent]) %>
-        <b><%="This conversation was started by: #{sent_from.first_name.capitalize} #{sent_from.last_name.capitalize}"%></b><br>
+        <b><%="This conversation was started by: #{sent_from.first_name} #{sent_from.last_name}"%></b>
         <%=msg[:created_at]%><br>
         <% messag_e = Message.find(msg[:message_id]).message_content %>
 <div class="scroll">
-        <br><b><%= "#{sent_from.first_name.capitalize} #{sent_from.last_name.capitalize}: " %></b><%=messag_e.capitalize.html_safe%><br><br>
+        <br><b><%= "#{sent_from.first_name} #{sent_from.last_name}: " %></b><%=messag_e .html_safe%><br><br>
 </div>
         <%=form_tag update_message_path(msg) do %>
         <%=text_area_tag :message_content, nil, placeholder: "Type here...", cols: "25" %><br>
         <%= submit_tag "Reply", class: "inline-buttons waves-effect waves-light blue lighten-3 btn" %><% end %> <br>
         <%=button_to "Delete", msg, class: "inline-buttons waves-effect waves-light blue lighten-3 btn", method: :delete, data: { confirm: "Really"} %><br>
-        _____________________________________________________________________________________________________________
+        __________________________________________________________________________________________
     <% else %>
         <% sent_from = User.find(msg[:user_sent]) %>
-        <%="This conversation was started by: #{sent_from.first_name.capitalize} #{sent_from.last_name.capitalize}"%><br>
+        <%="This conversation was started by: #{sent_from.first_name } #{sent_from.last_name }"%><br>
         <%=msg[:created_at]%><br>
         <% messag_e = Message.find(msg[:message_id]).message_content %>
 <div class="scroll">
-        <br><b><%= "#{sent_from.first_name.capitalize} #{sent_from.last_name.capitalize}: " %></b><%=messag_e.capitalize.html_safe%><br><br>
+        <br><b><%= "#{sent_from.first_name} #{sent_from.last_name}: " %></b><%=messag_e .html_safe%><br><br>
 </div>
         <font color="red">You cannot reply to this message because it has been<br>deleted by your friend, please start a new conversation.</font>
         <br><%=button_to "Delete", msg,class: "inline-buttons waves-effect waves-light blue lighten-3 btn", method: :delete, data: { confirm: "Really"} %><br>
-        _____________________________________________________________________________________________________________
+        __________________________________________________________________________________________
 
     <% end %> <br>
 <%end %>
@@ -58,28 +58,29 @@
 <% current_user.sent_messages.reverse.each do |msg| %>
     <% if (ReceivedMessage.find_by(message_id: msg[:message_id])) %>
         <% sent_from = User.find(msg[:user_sent]) %>
-        <b><%="This conversation was started by: #{sent_from.first_name} #{sent_from.last_name}"%></b><br>
+        <b><%="This conversation was started by: #{sent_from.first_name} #{sent_from.last_name}"%></b>
         <%= msg[:created_at] %><br>
 <div class="scroll">
         <% messag_e = Message.find(msg[:message_id]).message_content %>
-        <br><b><%= "#{sent_from.first_name.capitalize} #{sent_from.last_name.capitalize}: " %></b><%=messag_e.capitalize.html_safe%><br><br>
+        <br><b><%= "#{sent_from.first_name } #{sent_from.last_name }: " %></b><%=messag_e .html_safe%><br><br>
 </div>
         <%=form_tag update_message_path(msg) do %>
         <%=text_area_tag :message_content, nil, placeholder: "Type here...", cols: "25" %><br>
         <%= submit_tag "Reply", class: "inline-buttons waves-effect waves-light blue lighten-3 btn" %><% end %> <br>
         <%=button_to "Delete", msg,class: "inline-buttons waves-effect waves-light blue lighten-3 btn", method: :delete, data: { confirm: "Really"} %><br>
-        _____________________________________________________________________________________________________________
+        __________________________________________________________________________________________
+
     <% else %> <br>
         <% sent_from = User.find(msg[:user_sent]) %>
         <%="This conversation was started by: #{sent_from.first_name} #{sent_from.last_name}"%><br>
         <%= msg[:created_at] %><br>
 <div class="scroll">
         <% messag_e = Message.find(msg[:message_id]).message_content %>
-        <br><b><%= "#{sent_from.first_name.capitalize} #{sent_from.last_name.capitalize}: " %></b><%=messag_e.capitalize.html_safe%><br><br>
+        <br><b><%= "#{sent_from.first_name } #{sent_from.last_name }: " %></b><%=messag_e .html_safe%><br><br>
 </div>
         <font color="red">You cannot reply to this message because it has been<br>deleted by your friend, please start a new conversation.</font>
         <br><%=button_to "Delete", msg, class: "inline-buttons waves-effect waves-light blue lighten-3 btn", method: :delete, data: { confirm: "Really"} %><br>
-        _____________________________________________________________________________________________________________
+        __________________________________________________________________________________________
 
     <% end %> <br>
 <% end %>

@@ -5,7 +5,7 @@ class DislikesController < ApplicationController
     dislike.user_id = current_user.id
     dislike.post_id = params[:post_id]
     dislike.save
-    redirect_to posts_path
+    redirect_to profile_path(params[:profile_id])
   end
 
   def dislike_params

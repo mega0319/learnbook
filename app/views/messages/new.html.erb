@@ -1,9 +1,15 @@
 <div class="container">
-
-<h3 class="center">Send a Message </h3>
+<h4 class="center">Send a Message </h4>
+<h5 class="center"> recipient: <em> <%= @receiver.first_name %> <%= @receiver.last_name %> </em></h5>
+<div class="row">
+  <div class="col s6 offset-s3">
     <%= form_for @new_message do |f| %>
         <%= f.hidden_field :receiver_id, value: @receiver.id %>
         <%= f.text_area :message_content, rows: "5", cols: "30" %><br>
-        <%= f.submit "Click to send Message", class: "inline-buttons waves-effect waves-light blue lighten-3 btn", data: { confirm: "Are you sure you want to send the message?"} %>
+        <div class="center">
+        <%= f.submit "Send", class: "inline-buttons waves-effect waves-light blue lighten-3 btn", data: { confirm: "Are you sure you want to send the message?"} %>
+      </div>
     <% end %>
+  </div>
+  </div>
 </div>
