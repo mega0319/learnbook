@@ -10,10 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170420062748) do
+ActiveRecord::Schema.define(version: 20170421183638) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "dislikes", force: :cascade do |t|
+    t.integer "post_id"
+    t.integer "user_id"
+  end
 
   create_table "friend_requests", force: :cascade do |t|
     t.integer  "sender_id"
@@ -30,15 +35,21 @@ ActiveRecord::Schema.define(version: 20170420062748) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.integer "post_id"
+    t.integer "user_id"
+  end
+
   create_table "messages", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.text     "message_content"
   end
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
     t.text     "content"
-    t.integer  "profile_id"
+    t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -65,6 +76,20 @@ ActiveRecord::Schema.define(version: 20170420062748) do
     t.datetime "updated_at",     null: false
     t.string   "cohort_name"
     t.string   "cohort_date"
+  end
+
+  create_table "received_messages", force: :cascade do |t|
+    t.integer "user_received"
+    t.integer "user_sent"
+    t.integer "message_id"
+    t.string  "status"
+  end
+
+  create_table "sent_messages", force: :cascade do |t|
+    t.integer "user_sent"
+    t.integer "user_received"
+    t.integer "message_id"
+    t.string  "status"
   end
 
   create_table "users", force: :cascade do |t|

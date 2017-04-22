@@ -1,12 +1,15 @@
-<br>
-<%= flash[:message] %>
 
-<h3 class="flow-text">  <p>  Hi <%= @user.username   %>! <br> Welcome to the LearnBook community. A community formed exclusively to serve
-Flatiron students. We do not yet know much about you besides your username. Please
-take the time to create a profile page so that we can get to know you better so you can connect with other
-Flatiron students today! </p>  </h3> <br> <br>
+<div class="container">
+  <br>
+  <%= flash[:message] %>
+
+  <h3 class="flow-text">  <p>  Hi <%= @user.username   %>! <br> Welcome to the LearnBook community. A community formed exclusively to serve
+  Flatiron students. We do not yet know much about you besides your username. Please
+  take the time to create a profile page so that we can get to know you better so you can connect with other
+  Flatiron students today! </p>  </h3> <br> <br>
 
 
 
-
-<%= button_to "Customize Profile", edit_profile_path(@user.profile), method: "get" %>
+  <%= button_to "Create New Post", new_post_path, method: "get", class: "waves-effect waves-light blue lighten-3 btn" %> <br> <br>
+  <%= button_to "Customize Profile", edit_profile_path(@user.profile), method: "get", class: "waves-effect waves-light blue lighten-3 btn" %>
+</div>

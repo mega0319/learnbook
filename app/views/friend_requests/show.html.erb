@@ -1,3 +1,5 @@
+<div class="container">
+
 <h1> Friend Requests Received</h1>
 
 <% if (flash[:decline_notice].present?) %>
@@ -9,13 +11,13 @@
 <% if @friend_requests.present? %>
 
 <% @friend_requests.uniq.each do |request| %>
-  <% if request.receiver_id == current_user.id %>
+  <% if request.receiver_id == current_user.id && request.status == "pending" %>
     <% @user = User.find(request.sender_id) %>
     <%= link_to "#{@user.first_name} #{@user.last_name}", profile_path(@user.profile) %>
-
-    <%= button_to 'Accept Request', {:controller => "friendships", :action => "create", :user_id => "#{@user.id}"} , :method=>:post  %>
-
-    <%= button_to "Decline Request", destroy_request_path(request), method: "delete", data: {confirm: "Are you sure?"} %> <br>
+    <%= button_to "Accept Request", create_friendship_path(@user), method: "post", class: "waves-effect waves-light blue lighten-3 btn" %> <br>
+    <%= button_to "Decline Request", destroy_request_path(request), method: "delete", data: {confirm: "Are you sure?"} , class: "waves-effect waves-light blue lighten-3 btn" %> <br>
     <% end %>
     <% end %>
 <% end %>
+
+</div>

@@ -6,37 +6,53 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
   </head>
 
   <body>
-    <div class="container">
+      <% if current_user %>
+      <nav>
+          <div class="nav-wrapper blue lighten-3">
+            <a href="#" class="brand-logo right custom">LearnBook</a>
+            <a class="right-center"> <%=current_user.username%></a>
 
-    <% if current_user %>
+            <ul id="nav-mobile" class="left hide-on-med-and-down">
+              <li><a href= "/posts">Feed</a></li>
+              <li><a href="/messages">Messages</a></li>
+              <li><a href="/friendships">All Students</a></li>
+              <li><a href="/users/<%= current_user.id %>">Home Page</a></li>
+              <li><a href="/profiles/<%= current_user.profile.id %>">Profile Page</a></li>
+              <li><%= link_to "Logout", logout_path, method: "delete" %></li>
+            </ul>
+          </div>
+        </nav>
 
-    <% if check_pending_requests == true  %>
+
+    <% if !check_pending_requests.empty?  %>
     <%= button_to "#{num_of_pending_requests} Pending Friend Requests",friend_request_page_path(current_user), method: "get" %>
     <% end %>
     <div class="row">
       <div class="col s12">
-        <h5> <%= current_user.username %> <%= link_to "Inbox", messages_path, class: "waves-effect waves-light blue lighten-3 btn" %>  <%= link_to "All Students", friendships_path, class: "waves-effect waves-light blue lighten-3 btn" %>  <%= link_to "Home Page", user_path(current_user), class: "waves-effect waves-light blue lighten-3 btn" %>
-          <%= link_to "Profile Page", profile_path(current_user.profile), class: "waves-effect waves-light blue lighten-3 btn" %>   <%= link_to "Log Out", logout_path, method:"delete", class: "waves-effect waves-light blue lighten-3 btn" %>  </h5>
       </div>
       <div class="col s6">
 
       </div>
     </div>
     <div class="row">
-      <div class="col s12">
-          <h5> Find Friends </h5>
+      <div class="col s12 ">
+        <div class= "center-align">
+
           <%= form_tag search_path, method:"get" do  %>
           <%= text_field_tag :first_name, nil, placeholder: "First Name" %> <%= text_field_tag :last_name, nil, placeholder: "Last Name" %>
-          <%= submit_tag "Search" %>
+          <%= submit_tag "Search", class: "waves-effect waves-light blue lighten-3 btn" %>
           <% end %>
           <% end %>
+        </div>
       </div>
     </div>
 
     <%= yield %>
-  </div>
+
   </body>
 </html>

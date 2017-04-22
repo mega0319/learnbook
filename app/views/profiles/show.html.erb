@@ -1,26 +1,104 @@
-<h1> Welcome to <%= @profile.first_name %>'s Profile Page</h1>
 
-<% if (flash[:request_notice].present?) %>
-    <%=flash[:request_notice]%> <br> <br>
-    <% flash[:request_notice].clear %>
-<%end%>
+<div class="container">
 
-<% if (flash[:decline_notice].present?) %>
-    <%=flash[:decline_notice]%> <br> <br>
-    <% flash[:decline_notice].clear %>
-<%end%>
-
-
-
-<div class="add_friend">
-
-<% if current_user.id != @profile.user_id && check_for_requests  %>
-  <%=form_tag friend_request_path do %>
-  <%=submit_tag "Send Friend Request"%>
+  <% if @profile.user == current_user %>
+  <h2 class="center"> <%= "Welcome, #{current_user.first_name} #{current_user.last_name}" %> </h2>
+  <% else %>
+  <h2 class="center"> <%= @profile.user.first_name %> <%= @profile.user.last_name %></h2>
   <% end %>
-<% end %>
-</div>
 
-<% @profile.attributes.each do |name, value| %>
-<%= name %> : <%= value %> <br>
-<% end %>  <br><br>
+  <% if (flash[:request_notice].present?) %>
+      <%=flash[:request_notice]%> <br> <br>
+      <% flash[:request_notice].clear %>
+  <%end%>
+
+  <% if (flash[:decline_notice].present?) %>
+      <%=flash[:decline_notice]%> <br> <br>
+      <% flash[:decline_notice].clear %>
+  <%end%>
+
+
+
+  <div class="add_friend">
+
+  <% if friend_check %>
+  <%= "You are friends with #{@profile.user.first_name}"  %> <br> <br> <br>
+  <%= button_to "Send Message", new_message_path(@profile), method: "get", class: "waves-effect waves-light blue lighten-3 btn" %> <br> <br>
+    <div class="first">
+  <% end %>
+
+  <% if current_user.id != @profile.user_id && !friend_check %>
+    <%=form_tag friend_request_path do %>
+    <%=submit_tag "Send Friend Request", class: "waves-effect waves-light blue lighten-3 btn"%> <br> <br>
+    <% end %>
+  <% end %>
+  </div>
+<div class="row">
+    <div class="col s5 ">
+  <% @profile.attributes.each do |name, value| %>
+  <% if value != ''&& name != "id" && name != "user_id" %>
+  <%= name %> : <%= value %> <br>
+  <% end %>
+  <% end %>  <br><br>
+  </div>
+  <div class="col s7">
+  <% if @profile.user.posts.present? %>
+
+
+  <% @profile.user.posts.each do |post| %>
+
+    <div class="row">
+          <div class="col s12">
+            <div id="postcard", class="card hoverable grey lighten-5 z-depth-1 center">
+              <div class="card-content black-text">
+                <div class="card-title">
+                <%= post.title %> </div>
+                <p><%= post.content %>
+                <%= post.created_at %> <br> <br>
+                Likes: <%= post.likes.count %> <br>
+                Dislikes: <%= post.dislikes.count %> <br></p>
+              </div>
+              <div class="card-action">
+                <% if post.user == current_user %>
+                <%= button_to edit_post_path, params: {post_id: post.id}, class: "inline-buttons waves-effect waves-light blue lighten-3 btn" do %>
+                Edit <i class="material-icons left">mode_edit</i>
+                <% end %>
+
+                <%= button_to delete_post_path, params: {post_id: post.id}, class: "inline-buttons waves-effect waves-light blue lighten-3 btn" do %>
+                Delete <i class="material-icons left">delete</i>
+                <% end %>
+
+
+
+
+                  <% else %>
+
+                  <%= button_to gen_like_path, params: {post_id: post.id}, class: "inline-buttons waves-effect waves-light blue lighten-3 btn" do %>
+                  Like <i class="material-icons left">thumb_up</i>
+                  <% end %>
+
+                  <%= button_to gen_dislike_path, params: {post_id: post.id}, class: "inline-buttons waves-effect waves-light blue lighten-3 btn" do %>
+                  Dislike <i class="material-icons left">thumb_down</i>
+                  <% end %>
+
+
+                <% end %>
+              </div>
+
+
+        </div>
+        <% end %>
+      <% end %>
+
+
+
+
+
+
+
+
+
+
+  </div>
+</div>
+</div>

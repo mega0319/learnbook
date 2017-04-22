@@ -6,15 +6,15 @@ helper_method :find_profile
   end
 
   def create
-    @request_update = FriendRequest.find_by_sender_id_and_receiver_id(params[:user_id], current_user.id)
-    @request_update.update(status: "accepted")
-    @request_update.save
-    @new_friendship = Friendship.new
-    @new_friendship.user_id = current_user.id
-    @new_friendship.friend_id = params[:user_id]
-    @new_friendship.save
-
-    redirect_to profile_path(current_user.profile)
+    friend_id = User.find(params[:format]).id
+      new_friendship = Friendship.new(user_id: current_user.id, friend_id: friend_id)
+      second_friendship = Friendship.new(user_id: friend_id, friend_id: current_user.id)
+      new_friendship.save
+      second_friendship.save
+      update_request = FriendRequest.find_by(sender_id: friend_id, receiver_id: current_user.id )
+      update_request.status = "accepted"
+      update_request.save
+      redirect_to friendships_path
   end
 
   def search

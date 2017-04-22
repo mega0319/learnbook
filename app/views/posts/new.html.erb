@@ -1,0 +1,13 @@
+<div class="container">
+
+<h2 class="center"> Create New Post </h2>
+
+<%= form_for @post do |f| %>
+<%= f.label :title %>
+<%= f.text_field :title, placeholder: "Post Title" %>
+<%= f.label :content %>
+<%= f.text_area :content, placeholder: "Write your post here", :cols => "20", :rows => "50" %>
+<%= f.submit "Create Post", class: "waves-effect waves-light blue lighten-3 btn" %>
+<% end %>
+
+</div>

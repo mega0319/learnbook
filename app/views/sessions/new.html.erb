@@ -2,10 +2,10 @@
   <h2 class="center-align"> Welcome To LearnBook </h2> <br> <br>
 
   <%= flash[:message] %>
-
+  <div class="center-align">
   <%= form_tag create_session_path do  %>
   <label> Username </label> <br>
-  <%= text_field_tag :username %> <br>
+  <p class="center-align",id="login"> <%= text_field_tag :username %> </p> <br>
 
   <label> Password </label> <br>
   <%= password_field_tag :password %> <br>
@@ -14,4 +14,5 @@
   <% end %>
 
   <%= link_to "Create New Account", new_user_path %>
+</div>
 </div>

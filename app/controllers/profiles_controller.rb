@@ -25,4 +25,7 @@ class ProfilesController < ApplicationController
     params.require(:profile).permit(:first_name, :last_name, :occupation, :birthdate, :location, :favorite_quote, :email, :phone_number, :about_me, :facebook, :instagram, :twitter, :linkedin, :slack, :learnco, :github, :cohort_name, :cohort_date, :user_id)
   end
 
+
+
+
 end

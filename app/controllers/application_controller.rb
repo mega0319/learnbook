@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  helper_method :logged_in?, :authorize, :current_user, :check_pending_requests, :check_for_requests, :num_of_pending_requests
+  helper_method :logged_in?, :authorize, :current_user, :check_pending_requests, :check_for_requests, :num_of_pending_requests, :friend_check
 
   def authorize
     unless logged_in?
@@ -19,12 +19,8 @@ class ApplicationController < ActionController::Base
 
   def check_pending_requests
     @all = FriendRequest.all
-    @all.each do |req|
-      if req.receiver_id == current_user.id && req.status == "pending"
-        return true
-      else
-        return false
-      end
+    @pending_requests = @all.find_all do |req|
+      req.receiver_id == current_user.id && req.status == "pending"
     end
   end
 
@@ -36,19 +32,21 @@ class ApplicationController < ActionController::Base
   end
 
 
-  def check_for_requests
-    FriendRequest.all.each do |req|
-      if req.receiver_id == @profile.user_id && req.sender_id == current_user.id && req.status == "pending"
-        return true
-      elsif req.receiver_id == current_user.id && req.sender_id == @profile.user_id && req.status == "pending"
-        return true
-      else
-        return false
-      end
-    end
+  # def check_for_requests
+  #   FriendRequest.all.each do |req|
+  #     if req.receiver_id == @profile.user_id && req.sender_id == current_user.id && req.status == "pending"
+  #       return true
+  #     elsif req.receiver_id == current_user.id && req.sender_id == @profile.user_id && req.status == "pending"
+  #       return true
+  #     else
+  #       return false
+  #     end
+  #   end
+  # end
+
+  def friend_check
+    current_user.friends.include?(@profile.user)
   end
-
-
 
 
 end

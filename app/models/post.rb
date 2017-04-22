@@ -1,3 +1,5 @@
 class Post < ApplicationRecord
-  belongs_to :profile
+  belongs_to :user
+  has_many :likes
+  has_many :dislikes
 end

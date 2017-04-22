@@ -1,0 +1,7 @@
+<h2>Message Reply</h2>
+<%=form_for @reply_message do |f|%>
+    Conversation:
+    <br><br><%= "#{User.find(ReceivedMessage.find_by(message_id: @reply_message.id).user_sent).first_name} #{User.find(ReceivedMessage.find_by(message_id: @reply_message.id).user_sent).last_name}: "%><%= @reply_message[:message_content].capitalize.html_safe %><br><br>
+    <%=text_area_tag :message_content, "", rows: "10", cols: "25" %><br>
+    <%=f.submit "Reply" %>
+<%end%>

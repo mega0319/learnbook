@@ -1,35 +1,40 @@
-<%= form_for @profile, method: "patch" do |f| %>
-<%= f.label :first_name %> <br>
-<%= f.text_field :first_name %> <br>
-<%= f.label :last_name %> <br>
-<%= f.text_field :last_name %> <br>
-<%= f.label :cohort_name %> <br>
-<%= f.text_field :cohort_name %> <br>
-<%= f.label :cohort_date %>  <br>
-<%= f.text_field :cohort_date %> <br>
-<%= f.label :occupation %> <br>
-<%= f.text_field :occupation %> <br>
-<%= f.label :birthdate %> <br>
-<%= f.text_field :birthdate %> <br>
-<%= f.label :favorite_quote %> <br>
-<%= f.text_field :favorite_quote %> <br>
-<%= f.label :email %> <br>
-<%= f.text_field :email %> <br>
-<%= f.label :phone_number %> <br>
-<%= f.text_field :phone_number %> <br>
-<%= f.label :about_me %> <br>
-<%= f.text_field :about_me %> <br>
-<%= f.label :facebook %> <br>
-<%= f.text_field :facebook %> <br>
-<%= f.label :instagram %> <br>
-<%= f.text_field :instagram %> <br>
-<%= f.label :twitter %> <br>
-<%= f.text_field :twitter %> <br>
-<%= f.label :slack %> <br>
-<%= f.text_field :slack %> <br>
-<%= f.label :learnco %> <br>
-<%= f.text_field :learnco %> <br>
-<%= f.label :github %> <br>
-<%= f.text_field :github %> <br>
-<%= f.submit "Edit Profile" %>
-<% end %> <br> <br>
+<div class="container">
+
+        <h2>Edit Profile</h2>
+
+        <%= form_for @profile, method: "patch" do |f| %>
+        <%= f.label :first_name %> <br>
+        <%= f.text_field :first_name %> <br>
+        <%= f.label :last_name %> <br>
+        <%= f.text_field :last_name %> <br>
+        <%= f.label :cohort_name %> <br>
+        <%= f.text_field :cohort_name %> <br>
+        <%= f.label :cohort_date %>  <br>
+        <%= f.text_field :cohort_date %> <br>
+        <%= f.label :occupation %> <br>
+        <%= f.text_field :occupation %> <br>
+        <%= f.label :birthdate %> <br>
+        <%= f.text_field :birthdate %> <br>
+        <%= f.label :favorite_quote %> <br>
+        <%= f.text_field :favorite_quote %> <br>
+        <%= f.label :email %> <br>
+        <%= f.text_field :email %> <br>
+        <%= f.label :phone_number %> <br>
+        <%= f.text_field :phone_number %> <br>
+        <%= f.label :about_me %> <br>
+        <%= f.text_field :about_me %> <br>
+        <%= f.label :facebook %> <br>
+        <%= f.text_field :facebook %> <br>
+        <%= f.label :instagram %> <br>
+        <%= f.text_field :instagram %> <br>
+        <%= f.label :twitter %> <br>
+        <%= f.text_field :twitter %> <br>
+        <%= f.label :slack %> <br>
+        <%= f.text_field :slack %> <br>
+        <%= f.label :learnco %> <br>
+        <%= f.text_field :learnco %> <br>
+        <%= f.label :github %> <br>
+        <%= f.text_field :github %> <br>
+        <%= f.submit "Edit Profile", class: "waves-effect waves-light blue darken-3 btn" %>
+        <% end %> <br> <br>
+</div>

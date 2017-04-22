@@ -1,8 +1,28 @@
 @import "materialize";
 
 #first_name {
-  width: 200px;
+  width: 300px;
 }
 #last_name {
-  width: 200px;
+  width: 300px;
+}
+element.style {
+    display: inline-block;
+    width: 50%;
+}
+.custom {
+  position: relative !important
+}
+
+form.button_to  {
+  display: inline;
+}
+// #login {
+//   width: 300px;
+// }
+// #username {
+//   width: 300px;
+// }
+.card-action {
+  border: 5px;
 }

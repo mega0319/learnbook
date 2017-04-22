@@ -1,12 +1,18 @@
-<h2>Current Flatiron Students</h2>
+
+
+<h2 class="center-align">Current Flatiron Students</h2> <br> <br>
 
 <ul>
-
+  <div class="row">
+    <div class= "cols 12">
+<h5 class=>
 <% @users.each do |user| %>
 <li><%= link_to "#{user.first_name} #{user.last_name}", profile_path(user.profile) %> |
 Cohort Name: <%= user.profile.cohort_name %> |
-Cohort Date: <%= user.profile.cohort_date %> |
-Username: <%= user.username %> </li>
+Cohort Date: <%= user.profile.cohort_date %>
+ </li> <br>
 <% end %>
-
+</div>
+</div>
+</h5>
 </ul>

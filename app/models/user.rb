@@ -1,15 +1,36 @@
 class User < ApplicationRecord
 
+
+  #friendships
   has_one :profile
   has_many :friendships
   has_many :friends, through: :friendships
 
+  #friend_requests
   has_many :friend_requests
   has_many :senders, through: :friend_requests, source: :sender
   has_many :receivers, through: :friend_requests, source: :receiver
 
+  #posts
+  has_many :posts
+
+  #likes
+  has_many :likes
+
+  #dislikes
+  has_many :dislikes
+
+  #messages
+  has_many :sent_messages, foreign_key: "user_sent"
+  has_many :received_messages, foreign_key: "user_received"
+  has_many :messages_received, through: :sent_messages, source: :messages
+  #SELECT "messages".* FROM "messages" INNER JOIN "sent_messages" ON "messages"."id" = "sent_messages"."message_id" WHERE "sent_messages"."user_sent" = $1  [["user_sent", 7]]
+  has_many :messages, through: :received_messages
+  #SELECT "messages".* FROM "messages" INNER JOIN "received_messages" ON "messages"."id" = "received_messages"."message_id" WHERE "received_messages"."user_received" = $1  [["user_received", 7]]
+
   before_save :capitalize_name
 
+  #validations
   validates :username, presence: true, uniqueness: true
   validates :username, length: { in: 6..12 }
   validates :password, length: { in: 6..12 }

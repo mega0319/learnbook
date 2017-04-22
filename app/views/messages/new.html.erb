@@ -1,0 +1,10 @@
+<div class="container">
+
+<h1>Messages</h1>
+<h3>Send a Message </h3>
+    <%= form_for @new_message do |f| %>
+        <%= f.hidden_field :receiver_id, value: @receiver.id %>
+        <%= f.text_area :message_content, rows: "5", cols: "30" %><br>
+        <%= f.submit "Click to send Message", data: { confirm: "Are you sure you want to send the message?"} %>
+    <% end %>
+</div>

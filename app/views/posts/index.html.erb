@@ -1,0 +1,30 @@
+<div class="container">
+    <h2 class="center-align"> Your Daily Feed </h2>
+
+    <% @posts.each do |post| %>
+    <div class="row">
+        <div class="col s6 offset-s3">
+          <div class="card hoverable grey lighten-5 z-depth-1 center">
+            <div class="card-content black-text">
+              <span class="card-title"> <%= post.title %> </span>
+              <%= post.content %> <br><br>
+              <%= " - #{post.user.first_name}" %> <br> <br>
+              Likes: <%= post.likes.count %> <br>
+              Dislikes: <%= post.dislikes.count %> <br>
+            </div>
+            <div class="card-action">
+
+              <%= button_to gen_like_path, params: {post_id: post.id}, class: "inline-buttons waves-effect waves-light blue lighten-3 btn" do %>
+              Like <i class="material-icons left">thumb_up</i>
+              <% end %>
+
+              <%= button_to gen_dislike_path, params: {post_id: post.id}, class: "inline-buttons waves-effect waves-light blue lighten-3 btn" do %>
+              Dislike <i class="material-icons left">thumb_down</i>
+              <% end %>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>

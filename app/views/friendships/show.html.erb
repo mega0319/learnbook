@@ -1,0 +1,14 @@
+<div class="container">
+
+    <h3>Your Friends: </h3>
+    <% @users.friendships.each do |friend| %>
+
+        <% @friend = User.find(friend.friend_id) %>
+        <%= form_tag profile_path(@friend), method: "get" %>
+        <%= "#{@friend.first_name} #{@friend.last_name}" %><br>
+        <%= button_to "Unfriend", delete_me_path(@friend), method: :delete, data: { confirm: "Are You Sure?"}, class: "waves-effect waves-light blue lighten-3 btn" %><br>
+
+
+        <% end %>
+
+</div>
