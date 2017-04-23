@@ -1,0 +1,4 @@
+if (self.CavalryLogger) { CavalryLogger.start_js(["UU6+E"]); }
+
+__d('LogoutSwitcherMenuItem',['Event'],(function a(b,c,d,e,f,g){function h(i,j,k){j.subscribe('confirm',function(l,m){c('Event').fire(k,'submit');k.submit();j.hide();});c('Event').listen(i,'click',function(){j.show();});}f.exports.init=h;}),null);
+__d('ServiceWorkerLoginAndLogoutListener',['Event','ServiceWorkerLoginAndLogout'],(function a(b,c,d,e,f,g){var h={listen:function i(j,k){var l=function m(){if(k==='login'){c('ServiceWorkerLoginAndLogout').login();}else if(k==='logout'){c('ServiceWorkerLoginAndLogout').logout();}else throw new Error('bad login type given');};c('Event').listen(j,{click:l,submit:l});}};f.exports=h;}),null);

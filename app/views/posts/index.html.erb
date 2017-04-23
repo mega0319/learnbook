@@ -4,17 +4,13 @@
     <% @posts.reverse.each do |post| %>
     <div class="row">
         <div class="col s6 offset-s3">
-          <div class="card hoverable grey lighten-5 z-depth-1 center">
+          <div class="card hoverable grey lighten-5 z-depth-2 center">
             <div class="card-content black-text">
               <%= post.created_at %>
-              <span class="card-title"> <%= post.title %> </span>
+              <span class="card-title"> <em> <%= post.title %>  </em> </span>
               <%= post.content %> <br><br>
               <%= " - #{post.user.first_name} #{post.user.last_name}" %> <br> <br>
 
-              <b> Comments </b> <br>
-              <% post.comments.each do |comment| %>
-              <b> <%= comment.user.first_name %> </b>: <%= comment.content %> <br>
-              <% end %> <br>
               <div class="row">
                 <div class="col s6">
               <font color="green"> Likes: <%= post.likes.count %> </font>
@@ -23,6 +19,20 @@
               <font color="red"> Dislikes: <%= post.dislikes.count %> </font>
               </div>
               </div>
+
+              <b> Comments </b> <br>
+              <ul class="collection">
+              <% post.comments.each do |comment| %>
+                <li class="collection-item avatar grey lighten-4 z-depth-5">
+                  <%=image_tag "#{comment.user.profile.pic ||= 'no_user_logo.jpeg'}", class:"circle" %>
+                  <span class="title"><strong><%= comment.user.first_name %> <%= comment.user.last_name %></strong></span>
+                  <p>
+                     <%= comment.content %> <br>
+                    </p>
+                  </li>
+              <% end %>
+            </ul>
+
             </div>
             <div class="card-action">
 
