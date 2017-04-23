@@ -11,6 +11,20 @@
   </head>
 
   <body>
+
+  <style>
+    div.divname {
+        float: left;
+        margin-right: 5px;
+        display: inline-block;
+        background-color: red;
+    }
+    div.pending {
+
+        display: inline-block;
+        background-color: red;
+    }
+  </style>
       <% if current_user %>
       <nav>
           <div class="nav-wrapper blue lighten-3">
@@ -29,6 +43,15 @@
           </div>
         </nav>
 
+        <% current_user.received_messages.each do |rcvd_message| %>
+
+           <% if (!rcvd_message.message_status) %>
+           <%new_message_from = User.find(rcvd_message.user_sent).first_name %>
+           <div class="divname">
+               <%= button_to "#{new_message_from} sent you a new message", messages_path, method: "get"%>
+           <%end%>
+         </div>
+       <%end%><br>
 
     <% if !check_pending_requests.empty?  %>
     <%= button_to "#{num_of_pending_requests} Pending Friend Requests",friend_request_page_path(current_user), method: "get" %>

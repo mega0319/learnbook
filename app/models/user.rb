@@ -23,6 +23,10 @@ class User < ApplicationRecord
   #comments
   has_many :comments
 
+  #image
+  has_attached_file :profile_pic, styles: { large: "600x600", medium: "300x300", thumbnail: "150x150#"}, default_url: "/images/:style/missing.png"
+  validates_attachment_content_type :profile_pic, content_type: /\Aimage\/.*\z/
+
   #messages
   has_many :sent_messages, foreign_key: "user_sent"
   has_many :received_messages, foreign_key: "user_received"

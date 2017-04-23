@@ -23,10 +23,21 @@ class UsersController < ApplicationController
     @profile = Profile.find(current_user.profile)
   end
 
+  def edit
+    @user = User.find(current_user.id)
+  end
+
+  def update
+    @user = User.find(current_user.id)
+    @user.update(user_params)
+    @user.save
+    redirect_to profile_path(current_user.profile)
+  end
+
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :username, :password, :password_confirmation, :birthday, :email)
+    params.require(:user).permit(:first_name, :last_name, :username, :password, :password_confirmation, :birthday, :email, :profile_pic)
   end
 
 end

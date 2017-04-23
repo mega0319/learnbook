@@ -23,8 +23,12 @@
   <% if (flash[:decline_notice].present?) %>
       <%=flash[:decline_notice]%> <br> <br>
       <% flash[:decline_notice].clear %>
-  <%end%>
+  <%end%> <br>
 
+  <% if (flash[:empty_message_error].present?) %>
+    <font color="red"><%=flash[:empty_message_error]%> <br> <br></font>
+    <% flash[:empty_message_error].clear %>
+<%end%> <br>
 
 
   <div class="add_friend">
@@ -56,11 +60,13 @@
 </div>
 
 <div class="center">
-<% if @profile.pic %>
-  <%= image_tag(@profile.pic, size: "320x350") %>
-<% else %>
-  <%= image_tag("no_user_logo.jpeg") %>
-<% end %>
+  <% if @profile.user.profile_pic.present? %>
+  <%= image_tag @profile.user.profile_pic.url(:medium) %>
+  <% else %>
+  <%= image_tag "no_user_logo.jpeg", size: "300x300" %>
+  <% end %>
+
+
 </div>
 
   <% @profile.attributes.each do |name, value| %>

@@ -1,6 +1,6 @@
 <div class="container">
 
-  <h2 class="center"> Create New Account</h2>
+  <h2 class="center"> Update Account</h2>
 
   <%= flash[:message] %>
   <% if @user.errors.any? %>
@@ -9,7 +9,7 @@
   <% end %>
   <% end %>
 
-  <%= form_for @user, url: users_path, html: { multipart: true} do |f| %>
+  <%= form_for @user, html: { multipart: true} do |f| %>
   <%= f.label :first_name, "Enter your legal first name" %> <br>
   <%= f.text_field :first_name %> <br>
   <%= f.label :last_name, "Enter your legal last name" %> <br>
@@ -26,9 +26,5 @@
   <%= f.text_field :email %> <br> <br>
   <%= f.label :profile_pic %> <br>
   <%= f.file_field :profile_pic %> <br>
-  <%= f.submit "Register Account", class: "waves-effect waves-light blue lighten-3 btn" %> <br> <br>
+  <%= f.submit "Update Account", class: "waves-effect waves-light blue lighten-3 btn" %> <br> <br>
   <% end %>
-
-  <%= link_to "Already have an account? Click here!", new_session_path %>
-
-</div>

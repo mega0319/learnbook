@@ -1,90 +1,116 @@
 <div class="container">
-<h2 class="center-align">Messages</h2>
-
-  <!-- <%= button_to "Create New Message", new_message_path, method: "get", class: "waves-effect waves-light blue lighten-3 btn" %>
-    <div class="first"> -->
-    <head>
+<head>
 <style>
     div.scroll {
+
         width: 425px;
-        height: 200px;
+        height: 240px;
         overflow: scroll;
     }
 </style>
 </head>
+<h3 class="center">Messages</h3>
 <% if (flash[:message_sent].present?) %>
-<div class="center flash">
-    <font color="green"><%=flash[:message_sent]%></font><br>
+<div class="flash">
+    <font color="red"><%=flash[:message_sent]%></font><br>
 </div>
     <% flash[:message_sent].clear %>
 <%end%><br>
-
-
-<div class="row">
-  <div class="col s6  ">
-    <h5 class="center">Received</h5>
+<% if (flash[:empty_message_error].present?) %>
+<div class="flash">
+    <font color="red"><%=flash[:empty_message_error]%></font><br>
+</div>
+    <% flash[:empty_message_error].clear %>
+<%end%><br>
 <% current_user.received_messages.reverse.each do |msg| %>
+    <% msg.message_status = true %>
+
+    <% msg.save %>
     <% if (SentMessage.find_by(message_id: msg[:message_id])) %>
         <% sent_from = User.find(msg[:user_sent]) %>
-        <b><%="This conversation was started by: #{sent_from.first_name} #{sent_from.last_name}"%></b>
-        <%=msg[:created_at]%><br>
-        <% messag_e = Message.find(msg[:message_id]).message_content %>
-<div class="scroll">
-        <br><b><%= "#{sent_from.first_name} #{sent_from.last_name}: " %></b><%=messag_e .html_safe%><br><br>
-</div>
+        <% sent_message = SentMessage.find_by(message_id: msg[:message_id]) %>
+
+        <% sent_message.message_status = true %>
+        <% sent_message.save %>
+
+        <div class="row">
+            <div class="col s6 offset-s3">
+              <div class="card hoverable grey lighten-5 z-depth-2 center">
+                <div class="card-content black-text">
+                  <br> <%= image_tag "#{sent_from.profile_pic ||= 'no_user_logo.jpeg'}",size:"100x100", class: "circle left-align" %> <%=" Originator: #{sent_from.first_name} #{sent_from.last_name}"%>  <br>
+                  <%=msg[:created_at]%><br>
+                  <% messag_e = Message.find(msg[:message_id]).message_content %>
+                  <div class="left-align scroll">
+                  <br><strong><%= "#{sent_from.first_name } #{sent_from.last_name }: " %></strong><%=messag_e .html_safe%><br><br>
+                  </div>
+
         <%=form_tag update_message_path(msg) do %>
-        <%=text_area_tag :message_content, nil, placeholder: "Type here...", cols: "25" %><br>
+        <%=text_area_tag :message_content, nil, placeholder: "Type here...", cols: " 25" %><br>
         <%= submit_tag "Reply", class: "inline-buttons waves-effect waves-light blue lighten-3 btn" %><% end %> <br>
-        <%=button_to "Delete", msg, class: "inline-buttons waves-effect waves-light blue lighten-3 btn", method: :delete, data: { confirm: "Really"} %><br>
-        __________________________________________________________________________________________
-    <% else %>
-        <% sent_from = User.find(msg[:user_sent]) %>
-        <%="This conversation was started by: #{sent_from.first_name } #{sent_from.last_name }"%><br>
-        <%=msg[:created_at]%><br>
-        <% messag_e = Message.find(msg[:message_id]).message_content %>
-<div class="scroll">
-        <br><b><%= "#{sent_from.first_name} #{sent_from.last_name}: " %></b><%=messag_e .html_safe%><br><br>
-</div>
-        <font color="red">You cannot reply to this message because it has been<br>deleted by your friend, please start a new conversation.</font>
-        <br><%=button_to "Delete", msg,class: "inline-buttons waves-effect waves-light blue lighten-3 btn", method: :delete, data: { confirm: "Really"} %><br>
-        __________________________________________________________________________________________
-
-    <% end %> <br>
-<%end %>
-</div>
-
-<div class="col s6  ">
-  <h5 class="center">Sent</h5>
-<% current_user.sent_messages.reverse.each do |msg| %>
-    <% if (ReceivedMessage.find_by(message_id: msg[:message_id])) %>
-        <% sent_from = User.find(msg[:user_sent]) %>
-        <b><%="This conversation was started by: #{sent_from.first_name} #{sent_from.last_name}"%></b>
-        <%= msg[:created_at] %><br>
-<div class="scroll">
-        <% messag_e = Message.find(msg[:message_id]).message_content %>
-        <br><b><%= "#{sent_from.first_name } #{sent_from.last_name }: " %></b><%=messag_e .html_safe%><br><br>
-</div>
-        <%=form_tag update_message_path(msg) do %>
-        <%=text_area_tag :message_content, nil, placeholder: "Type here...", cols: "25" %><br>
-        <%= submit_tag "Reply", class: "inline-buttons waves-effect waves-light blue lighten-3 btn" %><% end %> <br>
-        <%=button_to "Delete", msg,class: "inline-buttons waves-effect waves-light blue lighten-3 btn", method: :delete, data: { confirm: "Really"} %><br>
-        __________________________________________________________________________________________
-
-    <% else %> <br>
-        <% sent_from = User.find(msg[:user_sent]) %>
-        <%="This conversation was started by: #{sent_from.first_name} #{sent_from.last_name}"%><br>
-        <%= msg[:created_at] %><br>
-<div class="scroll">
-        <% messag_e = Message.find(msg[:message_id]).message_content %>
-        <br><b><%= "#{sent_from.first_name } #{sent_from.last_name }: " %></b><%=messag_e .html_safe%><br><br>
-</div>
-        <font color="red">You cannot reply to this message because it has been<br>deleted by your friend, please start a new conversation.</font>
-        <br><%=button_to "Delete", msg, class: "inline-buttons waves-effect waves-light blue lighten-3 btn", method: :delete, data: { confirm: "Really"} %><br>
-        __________________________________________________________________________________________
-
-    <% end %> <br>
-<% end %>
-        </div>
+        <%=button_to "Delete", msg, method: :delete, data: { confirm: "Really"}, class: "inline-buttons waves-effect waves-light blue lighten-3 btn" %><br>
       </div>
     </div>
   </div>
+</div>
+    <% else %>
+        <% sent_from = User.find(msg[:user_sent]) %>
+        <br> <%= image_tag "#{sent_from.profile_pic ||= 'no_user_logo.jpeg'}",size:"100x100", class: "circle" %><%=" Originator: #{sent_from.first_name } #{sent_from.last_name }"%> <br>
+        <%=msg[:created_at]%><br>
+        <% messag_e = Message.find(msg[:message_id]).message_content %>
+        <div class="row">
+            <div class="col s6 offset-s3">
+              <div class="card hoverable grey lighten-5 z-depth-2 center">
+                <div class="card-content black-text">
+                <div class="left-align scroll">
+                <br><strong><%= "#{sent_from.first_name } #{sent_from.last_name }: " %></strong><%=messag_e .html_safe%><br><br>
+                </div>
+                <font color="red">You cannot reply to this message because it has been<br>deleted by your friend, please start a new conversation.</font>
+                <br><%=button_to "Delete", msg, method: :delete, data: { confirm: "Really"}, class: "inline-buttons waves-effect waves-light blue lighten-3 btn" %><br>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    <% end %>
+<%end %>
+<% current_user.sent_messages.reverse.each do |msg| %>
+
+    <% if (ReceivedMessage.find_by(message_id: msg[:message_id])) %>
+        <% sent_from = User.find(msg[:user_sent]) %>
+        <div class="row">
+            <div class="col s6 offset-s3">
+              <div class="card hoverable grey lighten-5 z-depth-2 center">
+                <div class="card-content black-text">
+                <br>  <%= image_tag "#{sent_from.profile_pic ||= 'no_user_logo.jpeg'}",size:"100x100", class: "circle" %> <%=" Originator: #{sent_from.first_name} #{sent_from.last_name}"%><br>
+                <%= msg[:created_at] %><br>
+                <% if (msg.message_status == true) %>
+                    <font color="blue"><%="Your last message to #{User.find(msg[:user_received]).first_name} #{User.find(msg[:user_received]).last_name} has been read."%></font>
+                <%else%>
+                    <font color="red"><%="Your last message to #{User.find(msg[:user_received]).first_name} #{User.find(msg[:user_received]).last_name} is still unread."%></font>
+                <%end%>
+
+                        <% messag_e = Message.find(msg[:message_id]).message_content %>
+                <div class="left-align scroll">
+                        <br><strong> <%= "#{sent_from.first_name } #{sent_from.last_name}: " %></strong><%=messag_e .html_safe%><br><br>
+                </div>
+                        <%=form_tag update_message_path(msg) do %>
+                        <%=text_area_tag :message_content, nil, placeholder: "Type here...", cols: " 25" %><br>
+                        <%= submit_tag "Reply", class: "inline-buttons waves-effect waves-light blue lighten-3 btn" %><% end %> <br>
+                        <%=button_to "Delete", msg, method: :delete, data: { confirm: "Really"},class: "inline-buttons waves-effect waves-light blue lighten-3 btn" %>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+    <% else %>
+        <% sent_from = User.find(msg[:user_sent]) %>
+        <br> <%= image_tag "#{sent_from.profile_pic ||= 'no_user_logo.jpeg'}",size:"100x100", class: "circle" %> <%=" Originator: #{sent_from.first_name} #{sent_from.last_name}"%>   <br>
+        <%= msg[:created_at] %><br>
+<div class="left-align scroll">
+        <% messag_e = Message.find(msg[:message_id]).message_content %>
+        <br><strong><%= "#{sent_from.first_name } #{sent_from.last_name }: " %></strong><%=messag_e .html_safe%><br><br>
+</div>
+        <font color="red">You cannot reply to this message because it has been<br>deleted by your friend, please start a new conversation.</font>
+        <br><%=button_to "Delete", msg, method: :delete, data: { confirm: "Really"} %><br>
+    <% end %>
+<% end %>
+</div>
