@@ -35,15 +35,18 @@
   <%= button_to "Unfriend", delete_me_path, params: {id: @profile.id}, method: "delete", class: "waves-effect waves-light blue lighten-3 btn" %>
     <div class="first">
   <% end %>
+<div class="center">
 
-  <% if current_user.id != @profile.user_id && !friend_check && check_for_requests_second.empty? && check_for_requests_first.empty? %>
-    <%=form_tag friend_request_path do %>
-    <%=submit_tag "Send Friend Request", class: "waves-effect waves-light blue lighten-3 btn"%> <br> <br>
-    <% end %>
-  <% end %>
   </div>
 <div class="row">
     <div class="col s5 ">
+      <div class="center">
+      <% if current_user.id != @profile.user_id && !friend_check && check_for_requests_second.empty? && check_for_requests_first.empty? %>
+        <%=form_tag friend_request_path do %>
+        <%=submit_tag "Send Friend Request", class: "waves-effect waves-light blue lighten-3 btn"%> <br> <br>
+        <% end %>
+        <% end %>
+      </div>
       <% if current_user.profile == @profile %>
       <div class="center">
 <%= button_to "Create New Post", new_post_path, method: "get", class: "waves-effect waves-light blue lighten-3 btn" %> <br>
@@ -54,7 +57,7 @@
 
 <div class="center">
 <% if @profile.pic %>
-  <%= image_tag(@profile.pic, size: "300x350") %>
+  <%= image_tag(@profile.pic, size: "320x350") %>
 <% else %>
   <%= image_tag("no_user_logo.jpeg") %>
 <% end %>
@@ -77,7 +80,6 @@
     <% post.comments.reverse.each do |comment| %>
     <li class="collection-item avatar grey lighten-4 z-depth-5">
       <%= image_tag "#{comment.user.profile.pic ||= 'no_user_logo.jpeg'}", class:"circle" %>
-      <img src="images/yuna.jpg" alt="" class="circle">
       <span class="title"><strong> <%= comment.user.first_name %> <%= comment.user.last_name %></strong></span>
       <p>
         <%= comment.content %> <br>
@@ -99,8 +101,9 @@
                 <%= post.created_at %>
                 <div class="card-title">
                 <em> <%= post.title %> </em> </div>
-                <p><%= post.content %>
-                 <br> <br>
+                <p>
+                  <%= post.content %> <br
+                </p>
 
                  <div class="row">
                    <div class="col s6">
@@ -116,9 +119,12 @@
                  <% post.comments.each do |comment| %>
                    <li class="collection-item avatar grey lighten-4 z-depth-5">
                      <%=image_tag "#{comment.user.profile.pic ||= 'no_user_logo.jpeg'}", class:"circle" %>
-                     <span class="title"><strong><%= comment.user.first_name %> <%= comment.user.last_name %></strong></span>
-                     <p>
-                        <%= comment.content %> <br>
+                     <span class="title left"><strong><%= comment.user.first_name %> <%= comment.user.last_name %></strong></span>
+                     <p><br>
+                       <div class="left">
+                       <%= comment.content %>
+                     </div>
+                       <br>
                        </p>
                      </li>
                  <% end %>
@@ -167,19 +173,9 @@
                 <% end %>
               </div>
 
-
         </div>
         <% end %>
       <% end %>
-
-
-
-
-
-
-
-
-
 
   </div>
 </div>
