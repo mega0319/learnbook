@@ -92,9 +92,9 @@
                 <%end%>
 
                         <% messag_e = Message.find(msg[:message_id]).message_content %>
-                <div class="left-align scroll">
+                        <div class="left-align scroll">
                         <br><strong> <%= "#{sent_from.first_name } #{sent_from.last_name}: " %></strong><%=messag_e .html_safe%><br><br>
-                </div>
+                        </div>
                         <%=form_tag update_message_path(msg) do %>
                         <%=text_area_tag :message_content, nil, placeholder: "Type here...", rows: "15", cols: " 25" %><br>
                         <%= submit_tag "Reply", class: "inline-buttons waves-effect waves-light blue lighten-3 btn" %><% end %> <br>

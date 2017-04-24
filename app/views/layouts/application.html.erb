@@ -25,11 +25,16 @@
         background-color: red;
     }
   </style>
+
+
       <% if current_user %>
+
+
+
       <nav>
           <div class="nav-wrapper blue lighten-3">
 
-            <a href="#" class="brand-logo right custom">LearnBook</a>
+            <a href="#" class="brand-logo right custom"><%= image_tag 'learnbook-01.jpg', size:"65x65" %></a>
             <a class="center"> <%=current_user.username%></a>
 
             <ul id="nav-mobile" class="left hide-on-med-and-down">
@@ -48,13 +53,13 @@
            <% if (!rcvd_message.message_status) %>
            <%new_message_from = User.find(rcvd_message.user_sent).first_name %>
            <div class="divname">
-               <%= button_to "#{new_message_from} sent you a new message", messages_path, method: "get"%>
+               <font color="red"><%= button_to "#{new_message_from} sent you a new message", messages_path, method: "get"%></font>
            <%end%>
          </div>
        <%end%><br> <br>
 
     <% if !check_pending_requests.empty?  %>
-    <%= button_to "#{num_of_pending_requests} Pending Friend Requests",friend_request_page_path(current_user), method: "get" %>
+    <font color="red"><%= button_to "#{num_of_pending_requests} Pending Friend Requests",friend_request_page_path(current_user), method: "get" %></font>
     <% end %>
     <div class="center">
       <%= form_tag search_path, method:"get" do  %>

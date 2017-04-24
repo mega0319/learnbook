@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   helper_method :logged_in?, :authorize, :current_user, :check_pending_requests, :check_for_requests, :num_of_pending_requests, :friend_check,
   :check_for_requests_second, :check_for_requests_first
+  # before_action :set_last_seen_at, if: proc { logged_in?}
 
   def authorize
     unless logged_in?
@@ -49,5 +50,10 @@ class ApplicationController < ActionController::Base
     current_user.friends.include?(@profile.user)
   end
 
+  def set_last_seen_at
+    a = current_user.last_seen_at
+     current_user.update_column(:last_seen_at, DateTime.now.strftime)
+    a
+  end
 
 end
