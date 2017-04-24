@@ -24,7 +24,7 @@ class User < ApplicationRecord
   has_many :comments
 
   #image
-  has_attached_file :profile_pic, styles: { large: "600x600", medium: "300x300", thumbnail: "150x150#"}, default_url: "/images/:style/missing.png"
+  has_attached_file :profile_pic, styles: { large: "600x600", medium: "300x300", thumbnail: "150x150#"}, default_url: "/images/no_user_logo.jpeg"
   validates_attachment_content_type :profile_pic, content_type: /\Aimage\/.*\z/
 
   #messages

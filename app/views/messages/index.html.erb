@@ -3,16 +3,17 @@
 <style>
     div.scroll {
 
-        width: 425px;
-        height: 240px;
+        width: 350px;
+        height: 180px;
         overflow: scroll;
     }
 </style>
 </head>
 <h3 class="center">Messages</h3>
+<div class="center-align">
 <% if (flash[:message_sent].present?) %>
 <div class="flash">
-    <font color="red"><%=flash[:message_sent]%></font><br>
+    <font color="green"><%=flash[:message_sent]%></font><br>
 </div>
     <% flash[:message_sent].clear %>
 <%end%><br>
@@ -22,6 +23,7 @@
 </div>
     <% flash[:empty_message_error].clear %>
 <%end%><br>
+</div>
 <% current_user.received_messages.reverse.each do |msg| %>
     <% msg.message_status = true %>
 
@@ -45,7 +47,7 @@
                   </div>
 
         <%=form_tag update_message_path(msg) do %>
-        <%=text_area_tag :message_content, nil, placeholder: "Type here...", cols: " 25" %><br>
+        <%=text_area_tag :message_content, nil, placeholder: "Type here...", tag: "15", cols: " 25" %><br>
         <%= submit_tag "Reply", class: "inline-buttons waves-effect waves-light blue lighten-3 btn" %><% end %> <br>
         <%=button_to "Delete", msg, method: :delete, data: { confirm: "Really"}, class: "inline-buttons waves-effect waves-light blue lighten-3 btn" %><br>
       </div>
@@ -94,7 +96,7 @@
                         <br><strong> <%= "#{sent_from.first_name } #{sent_from.last_name}: " %></strong><%=messag_e .html_safe%><br><br>
                 </div>
                         <%=form_tag update_message_path(msg) do %>
-                        <%=text_area_tag :message_content, nil, placeholder: "Type here...", cols: " 25" %><br>
+                        <%=text_area_tag :message_content, nil, placeholder: "Type here...", rows: "15", cols: " 25" %><br>
                         <%= submit_tag "Reply", class: "inline-buttons waves-effect waves-light blue lighten-3 btn" %><% end %> <br>
                         <%=button_to "Delete", msg, method: :delete, data: { confirm: "Really"},class: "inline-buttons waves-effect waves-light blue lighten-3 btn" %>
                       </div>

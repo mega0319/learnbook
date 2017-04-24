@@ -14,7 +14,7 @@ helper_method :find_profile
       update_request = FriendRequest.find_by(sender_id: friend_id, receiver_id: current_user.id )
       update_request.status = "accepted"
       update_request.save
-      redirect_to friendships_path
+      redirect_to friend_request_page_path(current_user)
   end
 
   def search

@@ -2,11 +2,13 @@
 
 <h2> Edit Post </h2>
 
-<%= form_for @post do |f| %>
+<%= form_for @post, url:posts_path, html: { multipart: true} do |f| %>
 <%= f.label :title %>
-<%= f.text_field :title, placeholder: "Edit Title" %>
+<%= f.text_field :title, placeholder: "Post Title" %>
+<%= f.label :image %> <br>
+<%= f.file_field :image %> <br> <br>
 <%= f.label :content %>
-<%= f.text_area :content, placeholder: "Edit your post here", :cols => "20", :rows => "20" %>
+<%= f.text_area :content, placeholder: "Write your post here", :cols => "20", :rows => "50" %>
 <%= f.submit "Edit Post", class: "waves-effect waves-light blue lighten-3 btn" %>
 <% end %>
 

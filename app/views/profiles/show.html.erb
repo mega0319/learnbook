@@ -10,26 +10,35 @@
   <h5 class="center"> <em> <%= @profile.favorite_quote %> </em> </h5>
   <% end %> <br>
 
+<div class="center-align">
   <% if (flash[:request_notice].present?) %>
-    <font color="green">  <%=flash[:request_notice]%> </font> <br> <br>
+    <font color="green">  <%=flash[:request_notice]%> </font> <br>
       <% flash[:request_notice].clear %>
   <%end%>
 
   <% if (flash[:unfriend_msg].present?) %>
-    <font color="red">  <%=flash[:unfriend_msg]%> </font> <br> <br>
+    <font color="red">  <%=flash[:unfriend_msg]%> </font> <br>
       <% flash[:unfriend_msg].clear %>
   <%end%>
 
   <% if (flash[:decline_notice].present?) %>
-      <%=flash[:decline_notice]%> <br> <br>
+      <%=flash[:decline_notice]%> <br>
       <% flash[:decline_notice].clear %>
-  <%end%> <br>
+  <%end%>
 
   <% if (flash[:empty_message_error].present?) %>
-    <font color="red"><%=flash[:empty_message_error]%> <br> <br></font>
+    <font color="red"><%=flash[:empty_message_error]%>  </font><br>
     <% flash[:empty_message_error].clear %>
-<%end%> <br>
+<%end%>
 
+  <% if flash[:like_msg].present? %>
+    <font color="red"> <%= flash[:like_msg] %> <br> <br> </font>
+    <% end %>
+
+  <% if flash[:dislike_msg].present? %>
+    <font color="red"> <%= flash[:dislike_msg] %> <br> <br> </font>
+    <% end %>
+</div>
 
   <div class="add_friend">
 
@@ -69,13 +78,21 @@
 
 </div>
 
-  <% @profile.attributes.each do |name, value| %>
-  <% if value != ''&& name != "id" && name != "user_id" && name != "pic" %>
+
   <ul class="collection">
-  <li class="collection-item"> <%= name %> : <%= value %> </li>
+  <li class="collection-item"> First Name: <%= @profile.user.first_name %> </li>
+  <li class="collection-item"> Last Name: <%= @profile.user.last_name %> </li>
+  <li class="collection-item"> E-mail: <%= @profile.user.email %> </li>
+  <li class="collection-item"> Username: <%= @profile.user.username %> </li>
+  <li class="collection-item"> Favorite Quote:<%= @profile.favorite_quote %> </li>
 </ul>
+
+
+  <h4 class="center">Friends</h4>
+  <% @profile.user.friends.each do |friend| %>
+  <%= link_to image_tag(friend.profile_pic.url(:thumbnail)), profile_path(friend.profile) %>
   <% end %>
-  <% end %>  <br><br>
+
   </div>
   <div class="col s7">
   <% if @profile.user == current_user %>
@@ -85,8 +102,8 @@
     <% if post.user == current_user %>
     <% post.comments.reverse.each do |comment| %>
     <li class="collection-item avatar grey lighten-4 z-depth-5">
-      <%= image_tag "#{comment.user.profile.pic ||= 'no_user_logo.jpeg'}", class:"circle" %>
-      <span class="title"><strong> <%= comment.user.first_name %> <%= comment.user.last_name %></strong></span>
+      <%= image_tag "#{comment.user.profile_pic ||= 'no_user_logo.jpeg'}", class:"circle" %>
+      <span class="title"><strong> <%= link_to "#{comment.user.first_name} #{comment.user.last_name}", profile_path(comment.user.profile) %></strong></span>
       <p>
         <%= comment.content %> <br>
       </p>
@@ -108,6 +125,9 @@
                 <div class="card-title">
                 <em> <%= post.title %> </em> </div>
                 <p>
+                  <% if post.image.present? %>
+                  <%= image_tag post.image.url(:medium) %>
+                  <% end %> <br>
                   <%= post.content %> <br
                 </p>
 
@@ -124,8 +144,8 @@
                  <ul class="collection">
                  <% post.comments.each do |comment| %>
                    <li class="collection-item avatar grey lighten-4 z-depth-5">
-                     <%=image_tag "#{comment.user.profile.pic ||= 'no_user_logo.jpeg'}", class:"circle" %>
-                     <span class="title left"><strong><%= comment.user.first_name %> <%= comment.user.last_name %></strong></span>
+                     <%=image_tag "#{comment.user.profile_pic ||= 'no_user_logo.jpeg'}", class:"circle" %>
+                     <span class="title left"><strong><%= link_to "#{comment.user.first_name} #{comment.user.last_name}", profile_path(comment.user.profile) %></strong></span>
                      <p><br>
                        <div class="left">
                        <%= comment.content %>

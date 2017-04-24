@@ -1,15 +1,19 @@
 <div class="container">
-    <h2 class="center-align"> Your Daily Feed </h2>
+    <h3 class="center-align"> Your Friend Feed </h3>
 
     <% @posts.reverse.each do |post| %>
+    <% if current_user.friends.include?(post.user) %>
     <div class="row">
         <div class="col s6 offset-s3">
           <div class="card hoverable grey lighten-5 z-depth-2 center">
             <div class="card-content black-text">
               <%= post.created_at %>
               <span class="card-title"> <em> <%= post.title %>  </em> </span>
+              <% if post.image.present? %>
+              <%= image_tag post.image.url(:medium) %>
+              <% end %> <br>
               <%= post.content %> <br><br>
-              <%= " - #{post.user.first_name} #{post.user.last_name}" %> <br> <br>
+              <%= link_to " - #{post.user.first_name} #{post.user.last_name}", profile_path(post.user.profile) %> <br> <br>
 
               <div class="row">
                 <div class="col s6">
@@ -24,8 +28,8 @@
               <ul class="collection">
               <% post.comments.each do |comment| %>
                 <li class="collection-item avatar grey lighten-4 z-depth-5">
-                  <%=image_tag "#{comment.user.profile.pic ||= 'no_user_logo.jpeg'}", class:"circle" %>
-                  <span class="title left"><strong><%= comment.user.first_name %> <%= comment.user.last_name %></strong></span>
+                  <%=image_tag "#{comment.user.profile_pic ||= 'no_user_logo.jpeg'}", class:"circle" %>
+                  <span class="title left"><strong> <%= link_to "#{comment.user.first_name} #{comment.user.last_name}", profile_path(comment.user.profile) %></strong></span>
                   <p> <br>
                     <div class="left">
                      <%= comment.content %> <br>
@@ -54,10 +58,12 @@
               <%= button_to create_comment_path, params: {post_id: post.id}, class: "inline-buttons waves-effect waves-light blue lighten-3 btn" do %>
               Comment <i class="material-icons left">comment</i>
               <% end %>
+
               <% end %>
 
             </div>
           </div>
         </div>
       </div>
+      <% end %>
       <% end %>

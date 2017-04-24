@@ -14,7 +14,7 @@
   <% @friend_requests.uniq.each do |request| %>
     <% if request.receiver_id == current_user.id && request.status == "pending" %>
       <% @user = User.find(request.sender_id) %>
-     <br> <br> <%= link_to "#{@user.first_name} #{@user.last_name}", profile_path(@user.profile) %>
+     <br> <br> <%= image_tag "#{@user.profile_pic ||= 'no_user_logo.jpeg'}",size:"100x100", class: "circle" %> <%= link_to "#{@user.first_name} #{@user.last_name}", profile_path(@user.profile) %>
       <%= button_to "Accept Request", create_friendship_path(@user), method: "post", class: "inline-buttons waves-effect waves-light blue lighten-3 btn" %>
       <%= button_to "Decline Request", destroy_request_path(request), method: "delete", data: {confirm: "Are you sure?"} , class: "inline-buttons waves-effect waves-light blue lighten-3 btn" %>
       <% end %>
