@@ -35,7 +35,7 @@
             <ul id="nav-mobile" class="left hide-on-med-and-down">
               <li><a href= "/posts">Feed</a></li>
               <li><a href="/messages">Messages</a></li>
-              <li><a href="/friendships">All Students</a></li>
+              <li><a href="/friendships">Students</a></li>
               <li><a href="/users/<%= current_user.id %>">Home Page</a></li>
               <li><a href="/profiles/<%= current_user.profile.id %>">Profile Page</a></li>
               <li><%= link_to "Logout", logout_path, method: "delete" %></li>
@@ -51,7 +51,7 @@
                <%= button_to "#{new_message_from} sent you a new message", messages_path, method: "get"%>
            <%end%>
          </div>
-       <%end%><br>
+       <%end%><br> <br>
 
     <% if !check_pending_requests.empty?  %>
     <%= button_to "#{num_of_pending_requests} Pending Friend Requests",friend_request_page_path(current_user), method: "get" %>

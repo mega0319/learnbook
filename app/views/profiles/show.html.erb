@@ -47,17 +47,9 @@
 <div class="row">
     <div class="col s5 ">
       <div class="center">
-      <% if current_user.id != @profile.user_id && !friend_check && check_for_requests_second.empty? && check_for_requests_first.empty? %>
-        <%=form_tag friend_request_path do %>
-        <%=submit_tag "Send Friend Request", class: "waves-effect waves-light blue lighten-3 btn"%> <br> <br>
-        <% end %>
-        <% end %>
+
       </div>
-      <% if current_user.profile == @profile %>
-      <div class="center">
-<%= button_to "Create New Post", new_post_path, method: "get", class: "waves-effect waves-light blue lighten-3 btn" %> <br>
-</div>
-  <% end %> <br>
+
   <div class="center">
 </div>
 
@@ -67,9 +59,9 @@
           <div id="postcard", class="card hoverable grey lighten-5 z-depth-1 center">
             <div class="card-content black-text">
           <% if @profile.user.profile_pic.present? %>
-          <%= image_tag @profile.user.profile_pic.url(:medium) %>
+          <%= image_tag @profile.user.profile_pic.url(:medium) %> <br>
           <% else %>
-          <%= image_tag "no_user_logo.jpeg", size: "300x300" %>
+          <%= image_tag "no_user_logo.jpeg", size: "300x300" %> <br>
           <% end %>
           <% if friend_check %>
           <font color="green"> <%= "You are friends with #{@profile.user.first_name}"   %> </font> <br> <br>
@@ -77,6 +69,16 @@
           <%= button_to "Unfriend", delete_me_path, params: {id: @profile.id}, method: "delete", class: "waves-effect waves-light blue lighten-3 btn" %>
 
           <% end %>
+          <% if current_user.profile == @profile %>
+          <div class="center">
+            <%= button_to "Create New Post", new_post_path, method: "get", class: "waves-effect waves-light blue lighten-3 btn" %> <br>
+          </div>
+          <% end %>
+          <% if current_user.id != @profile.user_id && !friend_check && check_for_requests_second.empty? && check_for_requests_first.empty? %>
+            <%=form_tag friend_request_path do %>
+            <%=submit_tag "Send Friend Request", class: "waves-effect waves-light blue lighten-3 btn"%> <br> <br>
+            <% end %>
+            <% end %>
           </div>
         </div>
       </div>

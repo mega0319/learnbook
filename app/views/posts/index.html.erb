@@ -4,16 +4,19 @@
     <% @posts.reverse.each do |post| %>
     <% if current_user.friends.include?(post.user) %>
     <div class="row">
-        <div class="col s6 offset-s3">
+        <div class="col s8 offset-s2">
           <div class="card hoverable grey lighten-5 z-depth-2 center">
             <div class="card-content black-text">
-              <%= post.created_at %>
-              <span class="card-title"> <em> <%= post.title %>  </em> </span>
+              <%= post.created_at %> <br>
+              <%= link_to image_tag(post.user.profile_pic.url(:thumbnail), class:"circle"), profile_path(post.user.profile) %> <br>
+              <%= post.user.first_name %>
+              <div class="card-title"> <em> <%= post.title %>  </em> </div>
+              <p>
               <% if post.image.present? %>
               <%= image_tag post.image.url(:medium) %>
               <% end %> <br>
-              <%= post.content %> <br><br>
-              <%= link_to " - #{post.user.first_name} #{post.user.last_name}", profile_path(post.user.profile) %> <br> <br>
+              <%= post.content %> <br>
+            </p>
 
               <div class="row">
                 <div class="col s6">
