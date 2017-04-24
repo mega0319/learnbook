@@ -40,17 +40,10 @@
     <% end %>
 </div>
 
-  <div class="add_friend">
 
-  <% if friend_check %>
-  <font color="green"> <%= "You are friends with #{@profile.user.first_name}"   %> </font> <br> <br>
-  <%= button_to "Send Message", new_message_path(@profile), method: "get", class: "waves-effect waves-light blue lighten-3 btn" %> <br> <br>
-  <%= button_to "Unfriend", delete_me_path, params: {id: @profile.id}, method: "delete", class: "waves-effect waves-light blue lighten-3 btn" %>
-    <div class="first">
-  <% end %>
-<div class="center">
 
-  </div>
+
+
 <div class="row">
     <div class="col s5 ">
       <div class="center">
@@ -69,12 +62,25 @@
 </div>
 
 <div class="center">
-  <% if @profile.user.profile_pic.present? %>
-  <%= image_tag @profile.user.profile_pic.url(:medium) %>
-  <% else %>
-  <%= image_tag "no_user_logo.jpeg", size: "300x300" %>
-  <% end %>
+  <div class="row">
+        <div class="col s12">
+          <div id="postcard", class="card hoverable grey lighten-5 z-depth-1 center">
+            <div class="card-content black-text">
+          <% if @profile.user.profile_pic.present? %>
+          <%= image_tag @profile.user.profile_pic.url(:medium) %>
+          <% else %>
+          <%= image_tag "no_user_logo.jpeg", size: "300x300" %>
+          <% end %>
+          <% if friend_check %>
+          <font color="green"> <%= "You are friends with #{@profile.user.first_name}"   %> </font> <br> <br>
+          <%= button_to "Send Message", new_message_path(@profile), method: "get", class: "waves-effect waves-light blue lighten-3 btn" %> <br> <br>
+          <%= button_to "Unfriend", delete_me_path, params: {id: @profile.id}, method: "delete", class: "waves-effect waves-light blue lighten-3 btn" %>
 
+          <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
 
 </div>
 
@@ -87,12 +93,12 @@
   <li class="collection-item"> Favorite Quote:<%= @profile.favorite_quote %> </li>
 </ul>
 
-
-  <h4 class="center">Friends</h4>
+  <div class="center-align">
+  <h4>Friends</h4>
   <% @profile.user.friends.each do |friend| %>
   <%= link_to image_tag(friend.profile_pic.url(:thumbnail)), profile_path(friend.profile) %>
   <% end %>
-
+</div>
   </div>
   <div class="col s7">
   <% if @profile.user == current_user %>
@@ -114,7 +120,6 @@
     <% end %>
   </ul>
   <% if @profile.user.posts.present? %>
-  <h5 class="center"> Wall </h5>
   <% @profile.user.posts.reverse.each do |post| %>
 
     <div class="row">
