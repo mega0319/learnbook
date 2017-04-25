@@ -138,14 +138,19 @@
                   <%= post.content %> <br
                 </p>
 
-                 <div class="row">
-                   <div class="col s6">
-                 <font color="green"> Likes: <%= post.likes.count %> </font>
-               </div>
-                 <div class="col s6">
-                 <font color="red"> Dislikes: <%= post.dislikes.count %> </font>
-               </div>
-               </div>
+                <div class="row">
+                  <div class="col s6">
+                <%= button_to gen_like_path, params: {post_id: post.id, profile_id: post.user.profile.id}, class: "inline-buttons waves-effect waves-light blue lighten-3 btn" do %>
+                <%= "#{post.likes.count} Likes"  %><i class="material-icons left">thumb_up</i>
+                <% end %>
+              </div>
+
+              <div class="col s6">
+                <%= button_to gen_dislike_path, params: {post_id: post.id, profile_id: post.user.profile.id}, class: "inline-buttons waves-effect waves-light blue lighten-3 btn" do %>
+                <%= "#{post.dislikes.count} Dislikes"  %><i class="material-icons left">thumb_down</i>
+                <% end %> <br> <br>
+              </div>
+                  </div>
 
                  <b> Comments </b> <br>
                  <ul class="collection">
