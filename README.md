@@ -1,24 +1,11 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Welcome To LearnBook
 
-Things you may want to cover:
+created by Naz Khan and Usman Pervaiz
 
-* Ruby version
+The goal of this project was to emulate facebook functionality using our skills in Rails.
+This project consists of zero JavaScript as we had not learned much to confidently
+implement it.
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+![Alt text](./screenshots/login.png?raw=true "Optional Title")

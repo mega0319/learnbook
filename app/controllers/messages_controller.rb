@@ -2,10 +2,12 @@ class MessagesController < ApplicationController
 
     def index
     end
+
     def new
         @new_message = Message.new
         @receiver = Profile.find(params[:format]).user
     end
+
     def create
         if (message_params[:message_content].blank?)
 
@@ -69,7 +71,9 @@ class MessagesController < ApplicationController
         # end
     end
     end
+
     private
+    
     def message_params
         #byebug
         params.require(:message).permit(:message_content, :receiver_id, :receiver_profile)
