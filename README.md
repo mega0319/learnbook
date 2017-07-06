@@ -1,5 +1,3 @@
-# README
-
 ## Welcome To LearnBook
 
 created by Naz Khan and Usman Pervaiz
@@ -56,8 +54,6 @@ When creating a new post, you can upload a picture. This feature is thanks to th
 and Paperclip libraries. This library is used for profile pictures as well which you can upload update creating an account or editing your profile.
 
 ### Posts
-
-![Alt text](./screenshots/posts.png?raw=true "Posts")
 
 ![Alt text](./screenshots/comments.png?raw=true "Comments")
 
