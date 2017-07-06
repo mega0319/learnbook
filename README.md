@@ -1,31 +1,48 @@
 # README
 
-Welcome To LearnBook
+##Welcome To LearnBook
 
 created by Naz Khan and Usman Pervaiz
 
 The goal of this project was to emulate facebook functionality using our skills in Rails.
-This project consists of zero JavaScript as we had not learned much to confidently
+This project consists of zero JavaScript as, at the time, we had not learned enough to confidently
 implement it.
 
-Login Screen
+###Login Screen
 
-![Alt text](./screenshots/login.png?raw=true "Optional Title")
+![Alt text](./screenshots/login.png?raw=true "Login Screen")
 
 Our LearnBook logo was created using Adobe Illustrator with the help of our good friend and colleague, Peter Chicarielli.
 
 Our User log-in feature utilizes some simple validations to check for password length,
 alphanumeric combinations, on top of bcrypt for password encryption and authentication.
 
-Landing Page
+###Landing Page
 
-![Alt text](./screenshots/landing.png?raw=true "Optional Title")
+![Alt text](./screenshots/landing.png?raw=true "Landing Page")
 
 The landing page is pretty simple but you can see the navbar up top which can guide
 the user to their desired destination.
 
-Profile page
+There is a search bar right underneath to search for different users by first name, last name or both.
 
-![Alt text](./screenshots/friend.png?raw=true "Optional Title")
+###Profile page
 
-This is what the profile page looks like.
+![Alt text](./screenshots/friend.png?raw=true "Profile Page")
+
+This is what the profile page looks like. We are currently logged in as Peter Kim and we are friends with Naz Khan. Since we are friends, we can like and comment on posts, send a message, or unfriend him if we'd like. We wanted to implement a friend request feature, where a user can send a request to another user. The second user has to make the decision on whether or not he approves the request as such.
+
+###New Request/Notifications
+==================================================================
+![Alt text](./screenshots/friend_req.png?raw=true "Notifications")
+
+We also implemented a notifications feature that will let the user know, upon login about any pending matters. In this case we have a new message and a new friend request, which if we click takes us to this page where we can accept or decline this request from Usman.
+
+###Message
+==================================================================
+![Alt text](./screenshots/message.png?raw=true "Messages")
+
+
+
+Just like facebook, we can like his posts and comment on it. We took the liberty to
+add a feature that facebook does not have; the 'dislike' button. Likes are tracked on the backend, so a user can't like or dislike a post more than once. If a user clicks like, the next time he clicks, it will negate the like.
