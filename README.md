@@ -1,6 +1,7 @@
 # README
 
-##Welcome To LearnBook
+## Welcome To LearnBook
+==================================================================
 
 created by Naz Khan and Usman Pervaiz
 
@@ -8,7 +9,8 @@ The goal of this project was to emulate facebook functionality using our skills 
 This project consists of zero JavaScript as, at the time, we had not learned enough to confidently
 implement it.
 
-###Login Screen
+### Login Screen
+==================================================================
 
 ![Alt text](./screenshots/login.png?raw=true "Login Screen")
 
@@ -17,7 +19,8 @@ Our LearnBook logo was created using Adobe Illustrator with the help of our good
 Our User log-in feature utilizes some simple validations to check for password length,
 alphanumeric combinations, on top of bcrypt for password encryption and authentication.
 
-###Landing Page
+### Landing Page
+==================================================================
 
 ![Alt text](./screenshots/landing.png?raw=true "Landing Page")
 
@@ -26,19 +29,20 @@ the user to their desired destination.
 
 There is a search bar right underneath to search for different users by first name, last name or both.
 
-###Profile page
+### Profile page
+==================================================================
 
 ![Alt text](./screenshots/friend.png?raw=true "Profile Page")
 
 This is what the profile page looks like. We are currently logged in as Peter Kim and we are friends with Naz Khan. Since we are friends, we can like and comment on posts, send a message, or unfriend him if we'd like. We wanted to implement a friend request feature, where a user can send a request to another user. The second user has to make the decision on whether or not he approves the request as such.
 
-###New Request/Notifications
+### New Request/Notifications
 ==================================================================
 ![Alt text](./screenshots/friend_req.png?raw=true "Notifications")
 
 We also implemented a notifications feature that will let the user know, upon login about any pending matters. In this case we have a new message and a new friend request, which if we click takes us to this page where we can accept or decline this request from Usman.
 
-###Message
+### Message
 ==================================================================
 ![Alt text](./screenshots/message.png?raw=true "Messages")
 
